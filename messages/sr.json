@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Početna",
+    "gallery": "Galerija",
+    "about": "O nama",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title": "Njata Shiz Nakit",
+    "subtitle": "Ručno izrađeni kožni nakit",
+    "description": "Svaki komad je unikat — bez kalupa, bez ponavljanja. Samo koža i kreativnost."
+  },
+  "about": {
+    "title": "Moja priča",
+    "intro": "Zovem se Tanja Novković iz Zemuna, jedna od onih žena koja se upoznala sa rakom dojke i preživela ga. Jedna od faza lečenja je bila moja potreba da nešto stvaram rukama a da u tome uživam i ne mislim previše o razdoblju života u kome sam se našla.",
+    "brand": "Tako se rodio brend Njata Shiz nakit. Ime nastalo od šatrovačkog izgovora mog imena (Njata), urođene kreativnosti, inovativnosti i smelosti (nazvala sam ga Shiz) da svaku narukvicu i ogrlicu odsanjam pa tek onda pretvaram u autentičan kožni nakit.",
+    "material": "Koža je materijal koji volim jer dopušta mnogo transformacija koje otkrivam iz dana u dan. U mom stvaranju nema ponavljanja, nije nikada isto, nema kalupa i gotovih elemenata. Samo koža i ja.",
+    "style": "Odlučila sam se za izradu ogrlica i širokih narukvica vrlo upadljivih geometrijskih oblika, boje i teksture a nisu mi strani ni cvetovi raznih veličina sa 3D efektom. Danas to popularno zovu STATEMENT nakit jer se izdvaja iz klasičnih formi izrade nakita.",
+    "audience": "Namenjen je ženama koje se ne boje da malo iskoče iz okvira trenda, ženama koje ne vole dosadno, ženama koje vole da se razlikuju a vole vidljivost na malo drugačiji način.",
+    "process": "Svaki komad ručno krojim, prošivam, lepim i oslikavam. Boje koje koristim su boje za kožu a završna zaštita je fiksator koji zaštićuje boju i čini da bude dugotrajna.",
+    "time": "Proces izrade jednog komada je oko 3 dana jer boja zahteva sušenje od 24h između 2 a nekada i 3 sloja boje. Nanošenje fiksatora ide na potpuno osušenu boju i njegovo vreme sušenja je 24h.",
+    "conclusion": "Nameće se zaključak da ovo što ja stvaram nije brza moda, nije industrijska proizvodnja i kao krajnji produkt je nakit koji nije istoizgledajući. Ovo je proces koji se kreira i traje a svaki komad je u svakom smislu reči unikat i ne postoje dva ista, ma koliko se trudila. Upravo u ovome leži smisao ručnog rada i sreća u stvaranju istog."
+  },
+  "categories": {
+    "all": "Sve kategorije",
+    "necklaces": "Ogrlice",
+    "bracelets": "Narukvice",
+    "statement": "Statement Komadi"
+  },
+  "gallery": {
+    "title": "Galerija",
+    "filter": "Filtriraj po kategoriji",
+    "noItems": "Nema komada u ovoj kategoriji za sada."
+  },
+  "piece": {
+    "viewDetails": "Pogledaj detalje",
+    "category": "Kategorija",
+    "created": "Kreirano",
+    "backToGallery": "Nazad na galeriju"
+  },
+  "common": {
+    "loading": "Učitavanje...",
+    "error": "Greška",
+    "retry": "Pokušaj ponovo"
+  },
+  "footer": {
+    "handmade": "Ručno izrađeno sa ljubavlju",
+    "location": "Zemun, Beograd"
+  }
+}

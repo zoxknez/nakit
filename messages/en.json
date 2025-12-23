@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Njata Shiz Nakit",
+    "subtitle": "Handcrafted Leather Jewelry",
+    "description": "Each piece is unique — no molds, no repetition. Just leather and creativity."
+  },
+  "about": {
+    "title": "My Story",
+    "intro": "My name is Tanja Novković from Zemun, one of those women who encountered breast cancer and survived it. One of the phases of treatment was my need to create something with my hands, to enjoy it and not think too much about the period of life I found myself in.",
+    "brand": "That's how the Njata Shiz nakit brand was born. The name comes from the slang pronunciation of my name (Njata), innate creativity, innovation and boldness (I called it Shiz) to dream up each bracelet and necklace and then turn it into authentic leather jewelry.",
+    "material": "Leather is a material I love because it allows many transformations that I discover day by day. In my creation there is no repetition, it is never the same, there are no molds and ready-made elements. Just leather and me.",
+    "style": "I decided to make necklaces and wide bracelets with very striking geometric shapes, colors and textures, and I'm no stranger to flowers of various sizes with 3D effect. Today it's popularly called STATEMENT jewelry because it stands out from classic forms of jewelry making.",
+    "audience": "It is intended for women who are not afraid to step a little out of the trend frame, women who don't like boring, women who love to be different and love visibility in a slightly different way.",
+    "process": "I hand cut, sew, glue and paint each piece. The colors I use are leather paints and the final protection is a fixative that protects the color and makes it long-lasting.",
+    "time": "The process of making one piece takes about 3 days because the paint requires drying for 24 hours between 2 and sometimes 3 coats of paint. The application of the fixative goes on completely dried paint and its drying time is 24 hours.",
+    "conclusion": "It follows that what I create is not fast fashion, it is not industrial production and as the final product is jewelry that is not identical. This is a process that is created and lasts and each piece is in every sense of the word unique and there are no two the same, no matter how hard I try. This is exactly where the meaning of handwork and the happiness of creating it lies."
+  },
+  "categories": {
+    "all": "All categories",
+    "necklaces": "Necklaces",
+    "bracelets": "Bracelets",
+    "statement": "Statement Pieces"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "filter": "Filter by category",
+    "noItems": "No items in this category yet."
+  },
+  "piece": {
+    "viewDetails": "View details",
+    "category": "Category",
+    "created": "Created",
+    "backToGallery": "Back to gallery"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Try again"
+  },
+  "footer": {
+    "handmade": "Handmade with love",
+    "location": "Zemun, Belgrade"
+  }
+}
