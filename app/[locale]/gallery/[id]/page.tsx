@@ -26,7 +26,7 @@ export default async function PieceDetailPage({
 
   // Get translation for current locale or fallback to first available
   const translation =
-    piece.translations.find((t) => t.locale === locale) ||
+    piece.translations.find((t: { locale: string }) => t.locale === locale) ||
     piece.translations[0];
 
   return (
