@@ -10,7 +10,7 @@ export default function RootPage() {
     // Check for saved locale
     const savedLocale = document.cookie
       .split('; ')
-      .find((row) => row.startsWith('NEXT_LOCALE='))
+      .find((row: string) => row.startsWith('NEXT_LOCALE='))
       ?.split('=')[1];
 
     if (savedLocale) {

@@ -170,7 +170,7 @@ function Header({ locale }: { locale: string }) {
               <span className="text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-950/30">
                 {localeNames[locale as keyof typeof localeNames]}
               </span>
-              {otherLocales.map((l) => (
+              {otherLocales.map((l: string) => (
                 <Link
                   key={l}
                   href={`/${l}/gallery`}

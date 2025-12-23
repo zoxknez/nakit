@@ -75,8 +75,8 @@ export default async function AdminDashboard() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pieces.map((piece) => {
-              const srTranslation = piece.translations.find((t) => t.locale === 'sr');
+            {pieces.map((piece: any) => {
+              const srTranslation = piece.translations.find((t: any) => t.locale === 'sr');
               return (
                 <div
                   key={piece.id}

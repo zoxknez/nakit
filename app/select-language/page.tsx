@@ -74,7 +74,7 @@ export default function SelectLanguagePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {languages.map((lang, index) => (
+            {languages.map((lang: any, index: number) => (
               <button
                 key={lang.code}
                 onClick={() => handleLanguageSelect(lang.code)}

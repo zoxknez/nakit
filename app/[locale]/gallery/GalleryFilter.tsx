@@ -34,7 +34,7 @@ export default function GalleryFilter({
   return (
     <div className="mb-12">
       <div className="flex flex-wrap justify-center gap-3">
-        {categories.map((cat) => {
+        {categories.map((cat: any) => {
           const isActive = activeCat === cat.key;
           const label = cat[locale as keyof typeof cat] || cat.en;
 

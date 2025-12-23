@@ -70,7 +70,7 @@ function Header({ locale }: { locale: string }) {
               <span className="text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-950/30">
                 {localeNames[locale as keyof typeof localeNames]}
               </span>
-              {otherLocales.map((l) => (
+              {otherLocales.map((l: string) => (
                 <Link
                   key={l}
                   href={`/${l}`}
@@ -206,7 +206,7 @@ function AboutSection({ locale }: { locale: string }) {
                   { icon: '✋', text: locale === 'sr' ? '100% ručno izrađeno' : locale === 'ru' ? '100% ручная работа' : '100% handmade' },
                   { icon: '🎨', text: locale === 'sr' ? 'Boje za kožu + fiksator' : locale === 'ru' ? 'Краски для кожи + фиксатор' : 'Leather paints + fixative' },
                   { icon: '💎', text: locale === 'sr' ? 'Svaki komad je unikat' : locale === 'ru' ? 'Каждое изделие уникально' : 'Each piece is unique' },
-                ].map((item, index) => (
+                ].map((item: any, index: number) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="text-2xl flex-shrink-0">{item.icon}</span>
                     <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{item.text}</span>
