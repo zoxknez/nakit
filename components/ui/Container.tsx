@@ -1,0 +1,27 @@
+import React from 'react';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+    children: React.ReactNode;
+}
+
+export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
+    ({ className, children, ...props }, ref) => {
+        return (
+            <div
+                ref={ref}
+                className={cn("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", className)}
+                {...props}
+            >
+                {children}
+            </div>
+        );
+    }
+);
+
+Container.displayName = "Container";

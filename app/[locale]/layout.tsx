@@ -1,12 +1,20 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { Geist } from 'next/font/google';
+import { Playfair_Display, Lato } from 'next/font/google';
 import '../globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const playfair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',
+});
+
+const lato = Lato({
+  variable: '--font-lato',
+  weight: ['300', '400', '700'],
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export function generateStaticParams() {
@@ -33,8 +41,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} antialiased`}>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${playfair.variable} ${lato.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
