@@ -37,13 +37,13 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-accent via-white to-brand-accent/50 dark:from-brand-dark dark:via-brand-primary dark:to-brand-dark">
       <div className="max-w-md w-full mx-auto px-6">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center mb-4">
-              <span className="text-white font-bold text-3xl">NS</span>
+            <div className="w-20 h-20 mx-auto bg-brand-secondary rounded-full flex items-center justify-center mb-4 shadow-xl">
+              <span className="text-brand-dark font-bold text-3xl">NS</span>
             </div>
             <h1 className="text-3xl font-bold gradient-text mb-2">
               Admin Panel

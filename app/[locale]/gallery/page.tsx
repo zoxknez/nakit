@@ -68,7 +68,7 @@ async function GalleryContent({
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                     {translation?.title || 'Untitled'}
                   </h3>
-                  <p className="text-sm text-purple-600 dark:text-purple-400 font-medium">
+                  <p className="text-sm text-brand-secondary dark:text-brand-secondary font-medium">
                     {translation?.categoryName || piece.categoryKey}
                   </p>
                 </div>
@@ -133,13 +133,13 @@ function Header({ locale }: { locale: string }) {
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-all duration-300" />
-              <div className="relative w-10 h-10 bg-gradient-to-br from-purple-600 via-violet-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                <span className="text-white font-bold text-xs">NS</span>
+              <div className="absolute inset-0 bg-brand-secondary rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-all duration-300" />
+              <div className="relative w-10 h-10 bg-brand-secondary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                <span className="text-brand-dark font-bold text-xs">NS</span>
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-black tracking-tight bg-gradient-to-r from-purple-600 via-violet-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="text-xl font-black tracking-tight text-brand-secondary">
                 Njata Shiz
               </span>
               <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
@@ -152,29 +152,29 @@ function Header({ locale }: { locale: string }) {
           <div className="flex items-center gap-6">
             <Link
               href={`/${locale}`}
-              className="relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors group px-3 py-2"
+              className="relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-secondary transition-colors group px-3 py-2"
             >
               {t('home')}
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-brand-secondary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
             </Link>
             <Link
               href={`/${locale}/gallery`}
-              className="relative text-sm font-semibold text-purple-600 dark:text-purple-400 px-3 py-2"
+              className="relative text-sm font-semibold text-brand-secondary dark:text-brand-secondary px-3 py-2"
             >
               {t('gallery')}
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full" />
+              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-brand-secondary rounded-full" />
             </Link>
 
             {/* Language Switcher */}
             <div className="flex items-center gap-1.5 pl-6 ml-2 border-l border-gray-300/50 dark:border-gray-700/50">
-              <span className="text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-950/30">
+              <span className="text-xs font-bold text-brand-secondary px-2 py-1 rounded-md bg-brand-accent/20 dark:bg-brand-secondary/10">
                 {localeNames[locale as keyof typeof localeNames]}
               </span>
               {otherLocales.map((l: string) => (
                 <Link
                   key={l}
                   href={`/${l}/gallery`}
-                  className="text-xs font-medium text-gray-500 hover:text-purple-600 dark:text-gray-500 dark:hover:text-purple-400 transition-all hover:scale-110 px-2 py-1 rounded-md hover:bg-purple-50 dark:hover:bg-purple-950/30"
+                  className="text-xs font-medium text-gray-500 hover:text-brand-secondary dark:text-gray-500 dark:hover:text-brand-secondary transition-all hover:scale-110 px-2 py-1 rounded-md hover:bg-brand-accent/10 dark:hover:bg-brand-secondary/10"
                 >
                   {localeNames[l as keyof typeof localeNames]}
                 </Link>

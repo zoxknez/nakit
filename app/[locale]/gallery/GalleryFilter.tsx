@@ -46,8 +46,8 @@ export default function GalleryFilter({
                 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105
                 ${
                   isActive
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600'
+                    ? 'bg-brand-secondary text-brand-dark shadow-lg border-2 border-brand-secondary'
+                    : 'bg-white dark:bg-brand-dark text-foreground dark:text-brand-accent hover:bg-brand-accent/10 dark:hover:bg-brand-primary/30 border border-brand-secondary/30 dark:border-brand-secondary/20'
                 }
               `}
             >

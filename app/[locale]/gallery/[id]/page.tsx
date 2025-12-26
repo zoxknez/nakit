@@ -35,7 +35,7 @@ export default async function PieceDetailPage({
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href={`/${locale}/gallery`}
-          className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:underline mb-8"
+          className="inline-flex items-center text-brand-secondary dark:text-brand-secondary hover:underline mb-8"
         >
           <svg
             className="w-5 h-5 mr-2"
@@ -79,7 +79,7 @@ export default async function PieceDetailPage({
           {/* Details */}
           <div className="lg:sticky lg:top-24 lg:h-fit">
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-              <div className="text-sm text-purple-600 dark:text-purple-400 font-medium mb-2">
+              <div className="text-sm text-brand-secondary dark:text-brand-secondary font-medium mb-2">
                 {translation?.categoryName}
               </div>
               <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
@@ -92,8 +92,8 @@ export default async function PieceDetailPage({
               </div>
 
               <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
-                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6">
-                  <h3 className="font-bold text-purple-900 dark:text-purple-300 mb-3">
+                <div className="bg-brand-accent/20 dark:bg-brand-primary/20 rounded-xl p-6">
+                  <h3 className="font-bold text-brand-primary dark:text-brand-accent mb-3">
                     {locale === 'sr'
                       ? 'O ručnoj izradi'
                       : locale === 'ru'
@@ -102,7 +102,7 @@ export default async function PieceDetailPage({
                   </h3>
                   <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                     <li className="flex items-start">
-                      <span className="text-purple-600 mr-2">✓</span>
+                      <span className="text-brand-secondary mr-2">✓</span>
                       <span>
                         {locale === 'sr'
                           ? 'Proces izrade: ~3 dana'
@@ -122,7 +122,7 @@ export default async function PieceDetailPage({
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-purple-600 mr-2">✓</span>
+                      <span className="text-brand-secondary mr-2">✓</span>
                       <span>
                         {locale === 'sr'
                           ? 'Svaki komad je unikat'
@@ -132,7 +132,7 @@ export default async function PieceDetailPage({
                       </span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-purple-600 mr-2">✓</span>
+                      <span className="text-brand-secondary mr-2">✓</span>
                       <span>
                         {locale === 'sr'
                           ? 'Boje za kožu + fiksator za dugotrajnost'
@@ -172,8 +172,8 @@ function Header({ locale }: { locale: string }) {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href={`/${locale}`} className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">NS</span>
+            <div className="w-10 h-10 bg-brand-secondary rounded-full flex items-center justify-center">
+              <span className="text-brand-dark font-bold text-sm">NS</span>
             </div>
             <span className="text-xl font-bold gradient-text hidden sm:inline">
               Njata Shiz
@@ -183,26 +183,26 @@ function Header({ locale }: { locale: string }) {
           <div className="flex items-center space-x-8">
             <Link
               href={`/${locale}`}
-              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-secondary transition-colors"
             >
               {t('home')}
             </Link>
             <Link
               href={`/${locale}/gallery`}
-              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-secondary transition-colors"
             >
               {t('gallery')}
             </Link>
 
             <div className="flex items-center space-x-2 border-l border-gray-300 dark:border-gray-700 pl-4">
-              <span className="text-purple-600 dark:text-purple-400 font-bold">
+              <span className="text-brand-secondary dark:text-brand-secondary font-bold">
                 {localeNames[locale as keyof typeof localeNames]}
               </span>
               {otherLocales.map((l: string) => (
                 <Link
                   key={l}
                   href={`/${l}/gallery`}
-                  className="text-gray-500 dark:text-gray-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors text-sm"
+                  className="text-gray-500 dark:text-gray-500 hover:text-brand-secondary dark:hover:text-brand-secondary transition-colors text-sm"
                 >
                   {localeNames[l as keyof typeof localeNames]}
                 </Link>

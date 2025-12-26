@@ -36,7 +36,7 @@ export default async function AdminDashboard() {
             <div className="flex items-center space-x-4">
               <Link
                 href="/sr"
-                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors"
+                className="text-gray-700 dark:text-gray-300 hover:text-brand-secondary transition-colors"
               >
                 View Site
               </Link>
@@ -54,7 +54,7 @@ export default async function AdminDashboard() {
           </h2>
           <Link
             href="/admin/pieces/new"
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105"
+            className="px-6 py-3 bg-brand-secondary text-brand-dark rounded-lg font-semibold hover:bg-brand-secondary/90 transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             + Add New Piece
           </Link>
@@ -68,7 +68,7 @@ export default async function AdminDashboard() {
             </p>
             <Link
               href="/admin/pieces/new"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all"
+              className="inline-block px-6 py-3 bg-brand-secondary text-brand-dark rounded-lg font-semibold hover:bg-brand-secondary/90 transition-all shadow-lg"
             >
               Create First Piece
             </Link>
@@ -105,7 +105,7 @@ export default async function AdminDashboard() {
                     <div className="flex space-x-2">
                       <Link
                         href={`/admin/pieces/${piece.id}/edit`}
-                        className="flex-1 py-2 text-center bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors"
+                        className="flex-1 py-2 text-center bg-brand-accent/30 dark:bg-brand-secondary/10 text-brand-primary dark:text-brand-secondary rounded-lg hover:bg-brand-accent/50 dark:hover:bg-brand-secondary/20 transition-colors border border-brand-secondary/30"
                       >
                         Edit
                       </Link>
