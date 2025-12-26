@@ -39,38 +39,96 @@ async function GalleryContent({
 
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          {locale === 'sr' ? 'Galerija' : locale === 'ru' ? 'Галерея' : 'Gallery'}
-        </h1>
+      {/* Hero Header */}
+      <div className="relative mb-16 text-center">
+        <div className="absolute inset-0 -z-10 opacity-30">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-secondary/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-20 right-1/4 w-72 h-72 bg-brand-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-2s' }} />
+        </div>
+        
+        <div className="mb-8 animate-fadeInUp">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-brand-primary dark:text-brand-secondary mb-4 tracking-tight">
+            {locale === 'sr' ? 'Galerija' : locale === 'ru' ? 'Галерея' : 'Gallery'}
+          </h1>
+          <div className="w-32 h-1 bg-brand-secondary mx-auto rounded-full mb-6" />
+          <p className="text-lg text-gray-600 dark:text-brand-accent max-w-2xl mx-auto font-serif italic">
+            {locale === 'sr' 
+              ? 'Svaki komad je priča, svaka priča je jedinstvena' 
+              : locale === 'ru'
+              ? 'Каждое изделие - это история, каждая история уникальна'
+              : 'Each piece is a story, every story is unique'}
+          </p>
+        </div>
+        
         <GalleryFilter currentCategory={category || 'all'} locale={locale} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {pieces.map((piece: any) => {
+      {/* Gallery Grid with Stagger Animation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {pieces.map((piece: any, index: number) => {
           const translation = piece.translations[0];
           return (
             <Link
               key={piece.id}
               href={`/${locale}/gallery/${piece.id}`}
-              className="group"
+              className="group animate-fadeInUp"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                <div className="relative aspect-square overflow-hidden bg-gray-200 dark:bg-gray-700">
+              <div className="relative bg-gradient-to-br from-white via-brand-accent/5 to-brand-accent/10 dark:from-brand-dark dark:via-brand-primary/20 dark:to-brand-primary/10 rounded-2xl overflow-hidden shadow-2xl hover:shadow-brand-secondary/30 transition-all duration-500 transform hover:-translate-y-3 hover:scale-[1.02] border-2 border-brand-accent/20 dark:border-brand-secondary/20 hover:border-brand-secondary/50 leather-texture">
+                {/* Gold Corner Accent */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-brand-secondary/30 to-transparent rounded-bl-full z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-brand-secondary/30 to-transparent rounded-tr-full z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Image Container */}
+                <div className="relative aspect-square overflow-hidden bg-brand-accent/10 dark:bg-brand-primary/20">
+                  {/* Shine Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 transform -translate-x-full group-hover:translate-x-full z-10" 
+                       style={{ transitionDelay: '100ms' }} />
+                  
                   <Image
                     src={piece.mediaUrls[0] || '/placeholder.jpg'}
                     alt={translation?.title || 'Jewelry piece'}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
+                  
+                  {/* Gradient Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-brand-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* View Details Label */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-20">
+                    <span className="px-6 py-2 bg-brand-secondary text-brand-dark text-sm font-bold uppercase tracking-wider rounded-full shadow-xl">
+                      {locale === 'sr' ? 'Pogledaj' : locale === 'ru' ? 'Смотреть' : 'View'}
+                    </span>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                
+                {/* Content */}
+                <div className="p-6 relative bg-white/50 dark:bg-brand-dark/50 backdrop-blur-sm">
+                  {/* Decorative Line */}
+                  <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-brand-secondary to-transparent" />
+                  
+                  <h3 className="text-xl md:text-2xl font-serif font-bold text-brand-primary dark:text-brand-accent mb-2 group-hover:text-brand-secondary dark:group-hover:text-brand-secondary transition-colors duration-300">
                     {translation?.title || 'Untitled'}
                   </h3>
-                  <p className="text-sm text-brand-secondary dark:text-brand-secondary font-medium">
-                    {translation?.categoryName || piece.categoryKey}
-                  </p>
+                  
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-brand-secondary rounded-full" />
+                    <p className="text-sm text-brand-secondary dark:text-brand-secondary font-semibold uppercase tracking-wide">
+                      {translation?.categoryName || piece.categoryKey}
+                    </p>
+                  </div>
+                  
+                  {/* Handmade Badge */}
+                  <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 bg-brand-secondary/10 dark:bg-brand-secondary/20 rounded-full border border-brand-secondary/30">
+                    <svg className="w-3 h-3 text-brand-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                      <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    <span className="text-xs text-brand-secondary font-medium">
+                      {locale === 'sr' ? 'Ručna izrada' : locale === 'ru' ? 'Ручная работа' : 'Handmade'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
@@ -79,13 +137,25 @@ async function GalleryContent({
       </div>
 
       {pieces.length === 0 && (
-        <div className="text-center py-20">
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
+        <div className="text-center py-32 animate-fadeInUp">
+          <div className="w-32 h-32 mx-auto mb-8 bg-brand-accent/20 dark:bg-brand-primary/20 rounded-full flex items-center justify-center">
+            <svg className="w-16 h-16 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+          </div>
+          <p className="text-2xl font-serif text-brand-primary dark:text-brand-accent mb-3">
             {locale === 'sr'
-              ? 'Nema dostupnih komada u ovoj kategoriji'
+              ? 'Nema dostupnih komada'
               : locale === 'ru'
-              ? 'Нет доступных изделий в этой категории'
-              : 'No pieces available in this category'}
+              ? 'Нет доступных изделий'
+              : 'No pieces available'}
+          </p>
+          <p className="text-gray-500 dark:text-gray-400">
+            {locale === 'sr'
+              ? 'u ovoj kategoriji'
+              : locale === 'ru'
+              ? 'в этой категории'
+              : 'in this category'}
           </p>
         </div>
       )}
@@ -105,17 +175,32 @@ export default async function GalleryPage({
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-brand-accent via-white to-brand-accent/30 dark:from-brand-dark dark:via-brand-primary/5 dark:to-brand-dark relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-secondary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
+        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-brand-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-1.5s' }} />
+      </div>
+      
       <Header locale={locale} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
         <Suspense fallback={
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+          <div className="flex flex-col justify-center items-center py-32">
+            <div className="relative w-20 h-20 mb-6">
+              <div className="absolute inset-0 border-4 border-brand-secondary/20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-brand-secondary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <p className="text-brand-secondary font-serif text-lg">
+              {locale === 'sr' ? 'Učitavanje...' : locale === 'ru' ? 'Загрузка...' : 'Loading...'}
+            </p>
           </div>
         }>
           <GalleryContent locale={locale} category={category} />
         </Suspense>
       </main>
+      
       <Footer locale={locale} />
     </div>
   );
@@ -127,54 +212,56 @@ function Header({ locale }: { locale: string }) {
   const otherLocales = ['sr', 'ru', 'en'].filter((l) => l !== locale);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-black/80 border-b border-gray-200/20 dark:border-gray-800/20 shadow-sm">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/95 dark:bg-brand-dark/95 border-b border-brand-secondary/20 dark:border-brand-secondary/10 shadow-xl leather-texture">
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-accent/10 via-transparent to-brand-accent/10 dark:from-brand-primary/10 dark:via-transparent dark:to-brand-primary/10" />
+      
+      <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-brand-secondary rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-all duration-300" />
-              <div className="relative w-10 h-10 bg-brand-secondary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
-                <span className="text-brand-dark font-bold text-xs">NS</span>
+              <div className="absolute inset-0 bg-brand-secondary rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-all duration-300 animate-pulse-glow" />
+              <div className="relative w-12 h-12 bg-gradient-to-br from-brand-secondary via-brand-secondary to-brand-secondary/80 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 border-2 border-brand-secondary/20">
+                <span className="text-brand-dark font-bold text-sm">NS</span>
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-black tracking-tight text-brand-secondary">
+              <span className="text-2xl font-serif font-bold text-brand-primary dark:text-brand-secondary tracking-tight">
                 Njata Shiz
               </span>
-              <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
-                Handmade Leather
+              <span className="text-[9px] font-semibold text-brand-secondary/70 dark:text-brand-secondary/60 tracking-widest uppercase">
+                Handmade Leather Jewelry
               </span>
             </div>
           </Link>
 
           {/* Navigation */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             <Link
               href={`/${locale}`}
-              className="relative text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-brand-secondary dark:hover:text-brand-secondary transition-colors group px-3 py-2"
+              className="relative text-sm font-semibold text-foreground dark:text-brand-accent hover:text-brand-secondary dark:hover:text-brand-secondary transition-all duration-300 group px-4 py-2"
             >
               {t('home')}
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-brand-secondary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-brand-secondary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
             </Link>
             <Link
               href={`/${locale}/gallery`}
-              className="relative text-sm font-semibold text-brand-secondary dark:text-brand-secondary px-3 py-2"
+              className="relative text-sm font-bold text-brand-secondary dark:text-brand-secondary px-4 py-2"
             >
               {t('gallery')}
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-brand-secondary rounded-full" />
+              <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-brand-secondary rounded-full shadow-lg shadow-brand-secondary/50" />
             </Link>
 
             {/* Language Switcher */}
-            <div className="flex items-center gap-1.5 pl-6 ml-2 border-l border-gray-300/50 dark:border-gray-700/50">
-              <span className="text-xs font-bold text-brand-secondary px-2 py-1 rounded-md bg-brand-accent/20 dark:bg-brand-secondary/10">
+            <div className="flex items-center gap-2 pl-6 ml-2 border-l-2 border-brand-secondary/30 dark:border-brand-secondary/20">
+              <span className="text-xs font-bold text-brand-secondary px-3 py-1.5 rounded-lg bg-brand-secondary/10 dark:bg-brand-secondary/20 border border-brand-secondary/30 shadow-inner">
                 {localeNames[locale as keyof typeof localeNames]}
               </span>
               {otherLocales.map((l: string) => (
                 <Link
                   key={l}
                   href={`/${l}/gallery`}
-                  className="text-xs font-medium text-gray-500 hover:text-brand-secondary dark:text-gray-500 dark:hover:text-brand-secondary transition-all hover:scale-110 px-2 py-1 rounded-md hover:bg-brand-accent/10 dark:hover:bg-brand-secondary/10"
+                  className="text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-brand-secondary dark:hover:text-brand-secondary transition-all hover:scale-110 px-3 py-1.5 rounded-lg hover:bg-brand-secondary/5 dark:hover:bg-brand-secondary/10"
                 >
                   {localeNames[l as keyof typeof localeNames]}
                 </Link>
@@ -191,14 +278,47 @@ function Footer({ locale }: { locale: string }) {
   const t = useTranslations('footer');
 
   return (
-    <footer className="bg-gray-900 text-white py-12 mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <div className="mb-4">
-            <span className="text-2xl font-bold gradient-text">Njata Shiz Nakit</span>
+    <footer className="relative bg-brand-dark text-brand-accent py-16 md:py-20 mt-32 leather-texture">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-primary/20 to-brand-primary/40" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-8">
+          {/* Logo */}
+          <div className="inline-flex items-center gap-3 mb-6">
+            <div className="w-14 h-14 bg-brand-secondary rounded-full flex items-center justify-center shadow-2xl shadow-brand-secondary/30 animate-pulse-glow">
+              <span className="text-brand-dark font-bold text-xl">NS</span>
+            </div>
+            <div>
+              <span className="text-3xl font-serif font-bold text-brand-secondary tracking-tight block">
+                Njata Shiz
+              </span>
+              <span className="text-xs text-brand-secondary/70 tracking-widest uppercase">Handmade Leather Jewelry</span>
+            </div>
           </div>
-          <p className="text-gray-400 mb-2">{t('handmade')}</p>
-          <p className="text-gray-500 text-sm">{t('location')}</p>
+          
+          <div className="w-32 h-px bg-gradient-to-r from-transparent via-brand-secondary to-transparent mx-auto" />
+          
+          <p className="text-lg font-serif italic text-brand-accent/90">{t('handmade')}</p>
+          <p className="text-sm text-brand-accent/70">{t('location')}</p>
+          
+          <div className="flex justify-center gap-8 pt-8">
+            <Link 
+              href={`/${locale}`} 
+              className="text-brand-accent hover:text-brand-secondary transition-all duration-300 hover:scale-110 hover:-translate-y-1 font-semibold"
+            >
+              {locale === 'sr' ? 'Početna' : locale === 'ru' ? 'Главная' : 'Home'}
+            </Link>
+            <Link 
+              href={`/${locale}/gallery`} 
+              className="text-brand-secondary font-bold"
+            >
+              {locale === 'sr' ? 'Galerija' : locale === 'ru' ? 'Галерея' : 'Gallery'}
+            </Link>
+          </div>
+          
+          <div className="pt-12 border-t border-brand-secondary/20 text-brand-accent/60 text-sm">
+            <p>© 2025 Njata Shiz Nakit. {locale === 'sr' ? 'Sva prava zadržana' : locale === 'ru' ? 'Все права защищены' : 'All rights reserved'}.</p>
+          </div>
         </div>
       </div>
     </footer>
