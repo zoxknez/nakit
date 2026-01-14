@@ -35,15 +35,15 @@ export default function SelectLanguagePage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-primary to-brand-dark text-brand-accent">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-primary/20 to-brand-dark text-brand-accent">
       {/* Leather texture overlay */}
-      <div className="absolute inset-0 leather-texture opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 leather-texture opacity-30 pointer-events-none" />
 
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-brand-secondary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-1.5s' }} />
+        <div className="absolute top-1/4 left-10 w-96 h-96 bg-brand-secondary/5 rounded-full blur-[120px] animate-float" />
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-brand-primary/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: '-3s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-primary/5 rounded-full blur-[160px] animate-pulse-glow" />
       </div>
 
       <div className="relative min-h-screen flex items-center justify-center px-4 py-12">
@@ -51,13 +51,13 @@ export default function SelectLanguagePage() {
           {/* Logo & Title Section */}
           <div className="text-center mb-16 animate-fadeInUp">
             <div className="inline-block mb-8 relative">
-              <div className="absolute inset-0 bg-brand-secondary/30 rounded-full blur-3xl animate-pulse-glow" />
-              <div className="relative w-40 h-40 mx-auto bg-brand-dark/40 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl shadow-brand-secondary/20 transform hover:scale-110 transition-transform duration-500 overflow-hidden border border-brand-secondary/30">
+              <div className="absolute inset-0 bg-brand-secondary/20 rounded-full blur-3xl animate-pulse-glow" />
+              <div className="relative w-40 h-40 mx-auto bg-brand-dark/20 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl shadow-brand-secondary/10 transform hover:scale-105 transition-transform duration-500 overflow-hidden border border-brand-secondary/20">
                 <Image
                   src="/images/logo.webp"
                   alt="Njata Logo"
                   fill
-                  className="object-cover p-0 transform scale-120"
+                  className="object-cover p-2 transform scale-110"
                   priority
                   sizes="(max-width: 768px) 100vw, 160px"
                 />
