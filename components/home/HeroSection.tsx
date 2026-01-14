@@ -35,158 +35,131 @@ export function HeroSection({ locale }: { locale: string }) {
     return (
         <section className="relative h-screen flex items-center justify-center overflow-hidden bg-brand-dark">
 
-            {/* 1. Dramatic Background Image */}
-            <div className="absolute inset-0 z-0 select-none overflow-hidden">
-                <div className="absolute inset-0 scale-125">
+            {/* 1. Dramatic Background Image with subtle Parallax */}
+            <motion.div
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1.25 }}
+                transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+                className="absolute inset-0 z-0 select-none overflow-hidden"
+            >
+                <div className="absolute inset-0">
                     <Image
                         src="/images/ispodportfolija.jpeg"
                         alt="Luxury Leather Background"
                         fill
                         priority
-                        className="object-cover object-[center_30%] opacity-50 mix-blend-overlay" // Zoomed in to show jewelry, centered on upper body
+                        className="object-cover object-[center_30%] opacity-40 mix-blend-overlay"
                         sizes="100vw"
                     />
                 </div>
-                {/* Adjusted Vignette Overlay to make text pop while keeping image visible */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-brand-dark/30 to-black/70" />
-            </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-brand-dark/40 to-black/90" />
+            </motion.div>
 
             <Container className="relative z-10 text-center h-full flex flex-col items-center justify-center pt-20">
 
-                {/* Badge */}
+                {/* Badge - Premium Refined */}
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     variants={fadeUp}
-                    className="mb-12 inline-flex items-center gap-3 px-6 py-2 rounded-full border border-brand-secondary/30 bg-black/40 backdrop-blur-md"
+                    className="mb-10 inline-flex items-center gap-3 px-8 py-2.5 rounded-full border border-brand-secondary/40 bg-brand-secondary/5 backdrop-blur-xl shadow-[0_0_20px_rgba(197,160,89,0.1)]"
                 >
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-secondary shadow-[0_0_10px_#c5a059]" />
-                    <span className="text-xs md:text-sm font-medium text-brand-secondary uppercase tracking-[0.2em]">
+                    <span className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse shadow-[0_0_10px_#c5a059]" />
+                    <span className="text-xs md:text-sm font-bold text-brand-secondary uppercase tracking-[0.3em] drop-shadow-sm">
                         Handmade in Belgrade
                     </span>
                 </motion.div>
 
-                {/* Main Title - GOLDEN PERFECT */}
-                <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-sans font-black mb-8 leading-[0.9]">
-                    <span className="sr-only">Njata</span>
-                    <div className="flex justify-center items-baseline">
-                        {/* N and j as separate but close */}
-                        <motion.span
-                            custom={0}
-                            initial="hidden"
-                            animate="visible"
-                            variants={titleVariants}
-                            className="inline-block hover:-translate-y-4 transition-transform duration-500 cursor-default leading-none"
-                            style={{
-                                background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 25%, #c5a059 50%, #8b6914 75%, #ffd700 100%)',
-                                backgroundSize: '200% 200%',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                                filter: 'drop-shadow(0 6px 20px rgba(255, 215, 0, 0.4)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8))',
-                                textShadow: '0 0 30px rgba(255, 215, 0, 0.3)',
-                                animation: 'gradient-shift 4s ease infinite'
-                            }}
-                        >
-                            N
-                        </motion.span>
-                        <motion.span
-                            custom={0.1}
-                            initial="hidden"
-                            animate="visible"
-                            variants={titleVariants}
-                            className="inline-block hover:-translate-y-4 transition-transform duration-500 cursor-default leading-none ml-1 md:ml-2 lg:ml-3"
-                            style={{
-                                background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 25%, #c5a059 50%, #8b6914 75%, #ffd700 100%)',
-                                backgroundSize: '200% 200%',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                                filter: 'drop-shadow(0 6px 20px rgba(255, 215, 0, 0.4)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8))',
-                                textShadow: '0 0 30px rgba(255, 215, 0, 0.3)',
-                                animation: 'gradient-shift 4s ease infinite',
-                                fontSize: '1em'
-                            }}
-                        >
-                            j
-                        </motion.span>
-                        {/* Rest of letters with proper spacing */}
-                        {['a', 't', 'a'].map((char, i) => (
-                            <motion.span
-                                key={i}
-                                custom={i + 1}
-                                initial="hidden"
-                                animate="visible"
-                                variants={titleVariants}
-                                className="inline-block hover:-translate-y-4 transition-transform duration-500 cursor-default ml-4 md:ml-6 lg:ml-8 leading-none"
-                                style={{
-                                    background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 25%, #c5a059 50%, #8b6914 75%, #ffd700 100%)',
-                                    backgroundSize: '200% 200%',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text',
-                                    filter: 'drop-shadow(0 6px 20px rgba(255, 215, 0, 0.4)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8))',
-                                    textShadow: '0 0 30px rgba(255, 215, 0, 0.3)',
-                                    animation: 'gradient-shift 4s ease infinite'
-                                }}
-                            >
-                                {char}
-                            </motion.span>
-                        ))}
-                    </div>
-                </h1>
+                {/* Main Title - PREMIUM LOGO STYLED (ENLARGED + EFFECTS) */}
+                <div className="relative mb-0 text-center scale-110 md:scale-100">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{
+                            opacity: 1,
+                            y: [0, -15, 0],
+                        }}
+                        transition={{
+                            opacity: { duration: 1.5 },
+                            y: {
+                                duration: 6,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }
+                        }}
+                        className="relative w-[340px] md:w-[680px] lg:w-[1000px] h-[170px] md:h-[340px] lg:h-[500px] mx-auto bg-gradient-to-r from-[#ffd700] via-[#fff5a5] to-[#c5a059] bg-[length:200%_auto]"
+                        style={{
+                            maskImage: 'url(/images/njata-title.png)',
+                            WebkitMaskImage: 'url(/images/njata-title.png)',
+                            maskSize: 'contain',
+                            WebkitMaskSize: 'contain',
+                            maskRepeat: 'no-repeat',
+                            WebkitMaskRepeat: 'no-repeat',
+                            maskPosition: 'center',
+                            WebkitMaskPosition: 'center',
+                            animation: 'gradient-shift 8s linear infinite',
+                            filter: 'drop-shadow(0 0 20px rgba(197, 160, 89, 0.4)) drop-shadow(0 20px 40px rgba(0,0,0,0.7))',
+                        }}
+                    >
+                        <span className="sr-only">Njata</span>
+                    </motion.div>
 
-                {/* Subtitle - Elegant Serif */}
+                    <motion.div
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 0.6, width: '45%' }}
+                        transition={{ duration: 2, delay: 1 }}
+                        className="h-[2px] bg-gradient-to-r from-transparent via-brand-secondary/40 to-transparent mx-auto -mt-8 md:-mt-12 lg:-mt-16 blur-[1px]"
+                    />
+                </div>
+
+                {/* Subtitle - Cinematic Refined */}
                 <motion.p
                     initial="hidden"
                     animate="visible"
                     variants={fadeUp}
-                    className="text-3xl md:text-5xl text-brand-secondary font-serif italic max-w-3xl mx-auto mb-8 leading-normal drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)] [text-shadow:_0_2px_4px_rgba(0,0,0,0.8)]"
+                    className="text-2xl md:text-3xl text-brand-accent/80 font-serif italic max-w-4xl mx-auto mb-10 tracking-widest leading-relaxed drop-shadow-lg"
                 >
                     {t('subtitle')}
                 </motion.p>
 
-                {/* Description - Clean Sans */}
-                <motion.p
-                    initial="hidden"
-                    animate="visible"
-                    variants={fadeUp}
-                    className="text-base md:text-lg text-white/90 max-w-lg mx-auto mb-14 font-sans tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] [text-shadow:_0_1px_2px_rgba(0,0,0,0.7)]"
-                >
-                    {t('description')}
-                </motion.p>
-
-                {/* Buttons - Premium */}
+                {/* Buttons - Extreme Luxury */}
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     variants={fadeUp}
-                    className="flex flex-col sm:flex-row gap-6 items-center"
+                    className="flex flex-col sm:flex-row gap-8 items-center"
                 >
                     <Link href={`/${locale}/gallery`} passHref>
-                        <Button size="lg" className="bg-gradient-to-r from-brand-secondary to-[#d4af66] text-black font-bold uppercase tracking-wider hover:shadow-[0_0_30px_rgba(197,160,89,0.4)] border border-white/20 min-w-[200px]">
-                            {locale === 'sr' ? 'Istraži Kolekciju' : locale === 'ru' ? 'Коллекция' : 'Explore Collection'}
+                        <Button size="lg" className="group relative bg-brand-dark/80 text-brand-secondary font-black uppercase tracking-[0.2em] border-2 border-brand-secondary/50 overflow-hidden min-w-[260px] h-16 hover:border-brand-secondary transition-all duration-500 shadow-2xl">
+                            <span className="absolute inset-0 bg-brand-secondary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                            <span className="relative flex items-center justify-center gap-3">
+                                {locale === 'sr' ? 'Istraži Kolekciju' : locale === 'ru' ? 'Коллекция' : 'Explore Collection'}
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-secondary animate-pulse group-hover:scale-150 transition-transform" />
+                            </span>
                         </Button>
                     </Link>
 
                     <Link href={`/${locale}#about`} passHref>
-                        <Button variant="ghost" size="lg" className="text-white hover:text-brand-secondary underline-offset-8 border-b border-transparent hover:border-brand-secondary rounded-none px-0">
+                        <Button variant="ghost" size="lg" className="text-brand-accent/60 hover:text-brand-secondary tracking-[0.3em] font-bold uppercase transition-all duration-300 group">
                             {locale === 'sr' ? 'Naša Priča' : locale === 'ru' ? 'Наша История' : 'Our Story'}
+                            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-px bg-brand-secondary" />
                         </Button>
                     </Link>
                 </motion.div>
 
             </Container>
 
-            {/* Scroll Indicator */}
+            {/* Premium Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50"
+                transition={{ delay: 2.5, duration: 1.5 }}
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 group cursor-pointer"
             >
-                <span className="text-[10px] uppercase tracking-widest text-white/50">Scroll</span>
-                <div className="w-px h-12 bg-linear-to-b from-brand-secondary to-transparent" />
+                <div className="relative">
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-brand-secondary/60 group-hover:text-brand-secondary transition-colors duration-300">Scroll</span>
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-px bg-brand-secondary/20 group-hover:w-full transition-all duration-500" />
+                </div>
+                <div className="relative w-px h-16 bg-gradient-to-b from-brand-secondary/40 via-brand-secondary to-transparent group-hover:h-24 transition-all duration-700" />
             </motion.div>
 
         </section>

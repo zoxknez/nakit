@@ -42,7 +42,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${playfair.variable} ${lato.variable} antialiased`}>
+      <body className={`${playfair.variable} ${lato.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
