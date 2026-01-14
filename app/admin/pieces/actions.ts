@@ -9,8 +9,10 @@ import { revalidatePath } from 'next/cache';
 export async function createPiece(formData: FormData) {
   const session = await auth();
   if (!session) {
-    throw new Error('Unauthorized');
+    return { success: false, error: 'Unauthorized' };
   }
+
+  let pieceId: string | null = null;
 
   try {
     const categoryKey = formData.get('categoryKey') as string;
@@ -20,8 +22,6 @@ export async function createPiece(formData: FormData) {
     const files = formData.getAll('files') as File[];
 
     console.log('--- FORGING NEW MASTERPIECE ---');
-    console.log('Category:', categoryKey);
-    console.log('Price:', price);
 
     // Upload images to Vercel Blob
     const mediaUrls: string[] = [];
@@ -35,7 +35,7 @@ export async function createPiece(formData: FormData) {
           mediaUrls.push(blob.url);
         } catch (uploadError) {
           console.error('Blob Upload Error:', uploadError);
-          throw new Error(`Failed to upload image: ${file.name}`);
+          return { success: false, error: `Failed to upload image: ${file.name}` };
         }
       }
     }
@@ -70,8 +70,8 @@ export async function createPiece(formData: FormData) {
     }
 
     // Create piece in a transaction
-    await prisma.$transaction(async (tx) => {
-      await tx.jewelryPiece.create({
+    const piece = await prisma.$transaction(async (tx) => {
+      return await tx.jewelryPiece.create({
         data: {
           categoryKey,
           mediaUrls,
@@ -84,10 +84,11 @@ export async function createPiece(formData: FormData) {
       });
     });
 
+    pieceId = piece.id;
     console.log('--- MASTERPIECE FORGED SUCCESSFULLY ---');
   } catch (error: any) {
     console.error('SERVER ACTION ERROR (FORGE):', error);
-    throw new Error(error.message || 'The forge failed to materialize the masterpiece.');
+    return { success: false, error: error.message || 'The forge failed to materialize the masterpiece.' };
   }
 
   revalidatePath('/admin');
@@ -98,7 +99,7 @@ export async function createPiece(formData: FormData) {
 export async function updatePiece(id: string, formData: FormData) {
   const session = await auth();
   if (!session) {
-    throw new Error('Unauthorized');
+    return { success: false, error: 'Unauthorized' };
   }
 
   try {
@@ -125,7 +126,7 @@ export async function updatePiece(id: string, formData: FormData) {
           mediaUrls.push(blob.url);
         } catch (uploadError) {
           console.error('Blob Upload Error (Update):', uploadError);
-          throw new Error(`Failed to upload new image: ${file.name}`);
+          return { success: false, error: `Failed to upload new image: ${file.name}` };
         }
       }
     }
@@ -184,7 +185,7 @@ export async function updatePiece(id: string, formData: FormData) {
     console.log('--- MASTERPIECE REFINED SUCCESSFULLY ---');
   } catch (error: any) {
     console.error('SERVER ACTION ERROR (REFINE):', error);
-    throw new Error(error.message || 'The refinement process failed.');
+    return { success: false, error: error.message || 'The refinement process failed.' };
   }
 
   revalidatePath('/admin');
@@ -196,7 +197,7 @@ export async function updatePiece(id: string, formData: FormData) {
 export async function deletePiece(id: string) {
   const session = await auth();
   if (!session) {
-    throw new Error('Unauthorized');
+    return { success: false, error: 'Unauthorized' };
   }
 
   try {
@@ -204,9 +205,9 @@ export async function deletePiece(id: string) {
       where: { id },
     });
     console.log('--- MASTERPIECE BANISHED ---', id);
-  } catch (error) {
+  } catch (error: any) {
     console.error('SERVER ACTION ERROR (BANISH):', error);
-    throw new Error('Could not banish this piece from the collection.');
+    return { success: false, error: 'Could not banish this piece from the collection.' };
   }
 
   revalidatePath('/admin');

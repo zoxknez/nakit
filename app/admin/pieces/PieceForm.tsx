@@ -1,9 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { createPiece, updatePiece } from './actions';
 import Image from 'next/image';
 import Link from 'next/link';
+
+interface PreviewItem {
+    id: string; // Unique ID for keying
+    url: string; // Blob URL for new, or Cloud URL for existing
+    file?: File; // Actual file for new
+    type: 'existing' | 'new';
+}
 
 interface PieceFormProps {
     initialData?: any;
@@ -12,29 +19,83 @@ interface PieceFormProps {
 
 export function PieceForm({ initialData, pieceId }: PieceFormProps) {
     const [loading, setLoading] = useState(false);
-    const [previews, setPreviews] = useState<string[]>(initialData?.mediaUrls || []);
+    const [error, setError] = useState<string | null>(null);
+    const [previews, setPreviews] = useState<PreviewItem[]>(
+        initialData?.mediaUrls.map((url: string, i: number) => ({
+            id: `existing-${i}`,
+            url,
+            type: 'existing'
+        })) || []
+    );
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files) {
-            const newPreviews = Array.from(files).map(file => URL.createObjectURL(file));
-            setPreviews([...previews, ...newPreviews]);
+            const newItems: PreviewItem[] = Array.from(files).map((file, i) => ({
+                id: `new-${Date.now()}-${i}`,
+                url: URL.createObjectURL(file),
+                file,
+                type: 'new'
+            }));
+            setPreviews([...previews, ...newItems]);
         }
     };
 
-    const removeImage = (index: number) => {
-        const newPreviews = [...previews];
-        newPreviews.splice(index, 1);
-        setPreviews(newPreviews);
-        // Note: Real deletion logic might need handling if these are existing URLs
+    const removeImage = (id: string) => {
+        setPreviews(prev => prev.filter(item => item.id !== id));
     };
 
     const makePrimary = (index: number) => {
         if (index === 0) return;
         const newPreviews = [...previews];
-        const [movedImage] = newPreviews.splice(index, 1);
-        newPreviews.unshift(movedImage);
+        const [moved] = newPreviews.splice(index, 1);
+        newPreviews.unshift(moved);
         setPreviews(newPreviews);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+
+        try {
+            const formData = new FormData(e.currentTarget);
+
+            // Remove the default 'files' entries because we'll add them manually in the correct order
+            formData.delete('files');
+            formData.delete('existingUrls');
+
+            // Collect existing URLs in order
+            const existingUrls = previews
+                .filter(p => p.type === 'existing')
+                .map(p => p.url);
+
+            formData.append('existingUrls', JSON.stringify(existingUrls));
+
+            // Add new files in order
+            previews.forEach(p => {
+                if (p.type === 'new' && p.file) {
+                    formData.append('files', p.file);
+                }
+            });
+
+            const result = pieceId
+                ? await updatePiece(pieceId, formData)
+                : await createPiece(formData);
+
+            if (result && !result.success) {
+                setError(result.error || 'The forge encountered an unknown resistance.');
+                setLoading(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } catch (err: any) {
+            console.error('Submit Error:', err);
+            setError('A critical failure occurred during the casting of this spell.');
+            setLoading(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     const srTranslation = initialData?.translations.find((t: any) => t.locale === 'sr');
@@ -42,11 +103,24 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
     const enTranslation = initialData?.translations.find((t: any) => t.locale === 'en');
 
     return (
-        <form
-            action={pieceId ? updatePiece.bind(null, pieceId) : createPiece}
-            onSubmit={() => setLoading(true)}
-            className="pb-32"
-        >
+        <form onSubmit={handleSubmit} className="pb-32">
+            {/* Error Message */}
+            {error && (
+                <div className="mb-10 animate-scale-in">
+                    <div className="glass-dark border border-red-500/30 rounded-3xl p-6 flex items-center gap-6 shadow-[0_0_40px_rgba(239,68,68,0.1)]">
+                        <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 shrink-0">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 className="text-red-500 font-bold text-sm uppercase tracking-widest mb-1">Forge Interrupted</h4>
+                            <p className="text-brand-accent/60 text-xs font-serif leading-relaxed">{error}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                 {/* Left Column: Media & Core Info (8 cols) */}
                 <div className="lg:col-span-12 xl:col-span-8 space-y-10">
@@ -66,9 +140,9 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10">
-                            {previews.map((url, i) => (
-                                <div key={i} className={`group/img relative aspect-square rounded-[2rem] overflow-hidden border transition-all duration-500 ${i === 0 ? 'border-brand-secondary ring-2 ring-brand-secondary/20' : 'border-brand-secondary/20'}`}>
-                                    <Image src={url} alt="Preview" fill className="object-cover transition-transform duration-700 group-hover/img:scale-110" />
+                            {previews.map((item, i) => (
+                                <div key={item.id} className={`group/img relative aspect-square rounded-[2rem] overflow-hidden border transition-all duration-500 ${i === 0 ? 'border-brand-secondary ring-2 ring-brand-secondary/20' : 'border-brand-secondary/20'}`}>
+                                    <Image src={item.url} alt="Preview" fill className="object-cover transition-transform duration-700 group-hover/img:scale-110" />
 
                                     {/* Cover Badge */}
                                     {i === 0 && (
@@ -81,7 +155,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     <div className="absolute inset-0 bg-brand-dark/60 backdrop-blur-sm opacity-0 group-hover/img:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3">
                                         <button
                                             type="button"
-                                            onClick={() => removeImage(i)}
+                                            onClick={() => removeImage(item.id)}
                                             className="w-10 h-10 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center border border-red-500/30 hover:bg-red-500 hover:text-white transition-all shadow-lg"
                                             title="Banish Image"
                                         >
@@ -113,8 +187,8 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                 </div>
                                 <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-[0.2em]">Add Vision</span>
                                 <input
+                                    ref={fileInputRef}
                                     type="file"
-                                    name="files"
                                     multiple
                                     accept="image/*"
                                     onChange={handleFileChange}
@@ -123,12 +197,6 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                 <div className="absolute inset-0 bg-brand-secondary/2 opacity-0 group-hover/add:opacity-100 transition-opacity" />
                             </label>
                         </div>
-
-                        <input
-                            type="hidden"
-                            name="existingUrls"
-                            value={JSON.stringify(previews.filter(url => url.startsWith('http')))}
-                        />
                     </div>
 
                     {/* Core Specifications */}
@@ -233,8 +301,9 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                 <div className="glass-dark rounded-full p-4 border border-brand-secondary/30 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)] flex items-center justify-between gap-6 backdrop-blur-2xl">
                     <button
                         type="button"
+                        disabled={loading}
                         onClick={() => window.history.back()}
-                        className="px-10 py-4 rounded-full text-[10px] font-black text-brand-secondary/60 uppercase tracking-widest hover:text-brand-secondary hover:bg-brand-secondary/5 transition-all"
+                        className="px-10 py-4 rounded-full text-[10px] font-black text-brand-secondary/60 uppercase tracking-widest hover:text-brand-secondary hover:bg-brand-secondary/5 transition-all disabled:opacity-30"
                     >
                         Revert
                     </button>
