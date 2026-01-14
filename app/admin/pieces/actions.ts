@@ -80,6 +80,7 @@ export async function createPiece(formData: FormData) {
     data: {
       categoryKey,
       mediaUrls,
+      price,
       publishedLocales,
       translations: {
         create: translations,
@@ -175,6 +176,7 @@ export async function updatePiece(id: string, formData: FormData) {
     data: {
       categoryKey,
       mediaUrls,
+      price,
       publishedLocales,
       translations: {
         create: translations,
