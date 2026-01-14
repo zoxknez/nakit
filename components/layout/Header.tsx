@@ -45,7 +45,7 @@ export function Header({ locale }: { locale: string }) {
                 initial={{ y: 0 }}
                 animate={{
                     y: isVisible ? 0 : -100,
-                    backgroundColor: isAtTop ? 'rgba(10, 5, 5, 0.4)' : 'rgba(10, 5, 5, 0.8)',
+                    backgroundColor: isAtTop ? 'rgba(46, 16, 101, 0.4)' : 'rgba(46, 16, 101, 0.8)',
                     backdropFilter: isAtTop ? 'blur(8px)' : 'blur(16px)',
                     borderBottomColor: isAtTop ? 'rgba(197, 160, 89, 0.1)' : 'rgba(197, 160, 89, 0.2)',
                 }}

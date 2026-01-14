@@ -52,7 +52,7 @@ export function HeroSection({ locale }: { locale: string }) {
                         sizes="100vw"
                     />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-brand-dark/40 to-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-purple-900/20 to-brand-dark" />
             </motion.div>
 
             <Container className="relative z-10 text-center h-full flex flex-col items-center justify-center pt-20">

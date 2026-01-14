@@ -13,7 +13,7 @@ export function Footer({ locale }: { locale: string }) {
     return (
         <footer className="relative bg-brand-dark text-brand-accent border-t-2 border-brand-secondary/30 leather-texture overflow-hidden">
             {/* Background Pattern */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-brand-primary/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-brand-primary/40 to-transparent" />
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute bottom-10 left-10 w-80 h-80 bg-brand-secondary/5 rounded-full blur-3xl animate-float" />
                 <div className="absolute top-10 right-10 w-64 h-64 bg-brand-secondary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />

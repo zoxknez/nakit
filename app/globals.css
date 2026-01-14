@@ -5,15 +5,18 @@
   --foreground: #1c1917;
   /* stone-900 */
 
-  /* Luxury Leather Palette */
-  --brand-primary: #4a0e12;
-  /* Deep Burgundy */
+  /* Royal Purple & Gold Palette */
+  --brand-primary: #581c87;
+  /* Royal Amethyst */
   --brand-secondary: #c5a059;
   /* Antique Gold */
-  --brand-accent: #e6d5b8;
-  /* Warm Cream */
-  --brand-dark: #290a0c;
-  /* Darker Burgundy */
+  --brand-accent: #f5f3ff;
+  /* Lavender Frost */
+  --brand-dark: #2e1065;
+  /* Midnight Purple */
+
+  --brand-purple: #7c3aed;
+  --brand-pink: #d946ef;
 
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-lato);
@@ -113,11 +116,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(197, 160, 89, 0.3), 0 0 40px rgba(74, 14, 18, 0.1);
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.3), 0 0 40px rgba(88, 28, 135, 0.1);
   }
 
   50% {
-    box-shadow: 0 0 30px rgba(197, 160, 89, 0.5), 0 0 60px rgba(74, 14, 18, 0.2);
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.5), 0 0 60px rgba(88, 28, 135, 0.2);
   }
 }
 
@@ -484,22 +487,22 @@ body {
   background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 50%, #0d0519 100%);
   border-radius: 0.5rem;
   opacity: 0.85;
-  background-image: 
-    radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0),
-    radial-gradient(circle at 18px 18px, rgba(0,0,0,0.2) 1px, transparent 0);
+  background-image:
+    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0),
+    radial-gradient(circle at 18px 18px, rgba(0, 0, 0, 0.2) 1px, transparent 0);
   background-size: 40px 40px, 60px 60px;
 }
 
 .embossed-text {
   color: #c5a059;
-  text-shadow: 
-    2px 2px 0px rgba(0,0,0,0.9),
-    1px 1px 0px rgba(255,255,255,0.12),
-    -1px -1px 0px rgba(0,0,0,0.6),
-    0px 0px 25px rgba(197,160,89,0.25),
-    inset 0px 1px 0px rgba(255,255,255,0.2),
-    inset 0px -1px 0px rgba(0,0,0,0.4);
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+  text-shadow:
+    2px 2px 0px rgba(0, 0, 0, 0.9),
+    1px 1px 0px rgba(255, 255, 255, 0.12),
+    -1px -1px 0px rgba(0, 0, 0, 0.6),
+    0px 0px 25px rgba(197, 160, 89, 0.25),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -1px 0px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
   position: relative;
   z-index: 1;
 }
