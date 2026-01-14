@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Playfair_Display, Lato } from 'next/font/google';
+import { Header } from '@/components/layout/Header';
 import '../globals.css';
 
 const playfair = Playfair_Display({
@@ -44,6 +45,7 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={`${playfair.variable} ${lato.variable} antialiased`} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
+          <Header locale={locale} />
           {children}
         </NextIntlClientProvider>
       </body>
