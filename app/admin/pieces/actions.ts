@@ -86,14 +86,15 @@ export async function createPiece(formData: FormData) {
 
     pieceId = piece.id;
     console.log('--- MASTERPIECE FORGED SUCCESSFULLY ---');
+
+    revalidatePath('/admin');
+    revalidatePath('/[locale]/gallery', 'page');
+
+    return { success: true };
   } catch (error: any) {
     console.error('SERVER ACTION ERROR (FORGE):', error);
     return { success: false, error: error.message || 'The forge failed to materialize the masterpiece.' };
   }
-
-  revalidatePath('/admin');
-  revalidatePath('/[locale]/gallery', 'page');
-  redirect('/admin');
 }
 
 export async function updatePiece(id: string, formData: FormData) {
@@ -183,15 +184,16 @@ export async function updatePiece(id: string, formData: FormData) {
     });
 
     console.log('--- MASTERPIECE REFINED SUCCESSFULLY ---');
+
+    revalidatePath('/admin');
+    revalidatePath(`/[locale]/gallery/${id}`, 'page');
+    revalidatePath('/[locale]/gallery', 'page');
+
+    return { success: true };
   } catch (error: any) {
     console.error('SERVER ACTION ERROR (REFINE):', error);
     return { success: false, error: error.message || 'The refinement process failed.' };
   }
-
-  revalidatePath('/admin');
-  revalidatePath(`/[locale]/gallery/${id}`, 'page');
-  revalidatePath('/[locale]/gallery', 'page');
-  redirect('/admin');
 }
 
 export async function deletePiece(id: string) {
@@ -205,12 +207,13 @@ export async function deletePiece(id: string) {
       where: { id },
     });
     console.log('--- MASTERPIECE BANISHED ---', id);
+
+    revalidatePath('/admin');
+    revalidatePath('/[locale]/gallery', 'page');
+
+    return { success: true };
   } catch (error: any) {
     console.error('SERVER ACTION ERROR (BANISH):', error);
     return { success: false, error: 'Could not banish this piece from the collection.' };
   }
-
-  revalidatePath('/admin');
-  revalidatePath('/[locale]/gallery', 'page');
-  redirect('/admin');
 }

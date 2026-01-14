@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { createPiece, updatePiece } from './actions';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface PreviewItem {
     id: string; // Unique ID for keying
@@ -18,6 +19,7 @@ interface PieceFormProps {
 }
 
 export function PieceForm({ initialData, pieceId }: PieceFormProps) {
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [previews, setPreviews] = useState<PreviewItem[]>(
@@ -85,7 +87,10 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                 ? await updatePiece(pieceId, formData)
                 : await createPiece(formData);
 
-            if (result && !result.success) {
+            if (result && result.success) {
+                router.push('/admin');
+                router.refresh();
+            } else if (result && !result.success) {
                 setError(result.error || 'The forge encountered an unknown resistance.');
                 setLoading(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
