@@ -13,6 +13,8 @@ export async function createPiece(formData: FormData) {
   }
 
   const categoryKey = formData.get('categoryKey') as string;
+  const priceString = formData.get('price') as string;
+  const price = priceString ? parseFloat(priceString) : null;
   const files = formData.getAll('files') as File[];
 
   // Upload images to Vercel Blob
@@ -96,6 +98,8 @@ export async function updatePiece(id: string, formData: FormData) {
   }
 
   const categoryKey = formData.get('categoryKey') as string;
+  const priceString = formData.get('price') as string;
+  const price = priceString ? parseFloat(priceString) : null;
   const files = formData.getAll('files') as File[];
   const existingUrls = formData.get('existingUrls') as string;
 

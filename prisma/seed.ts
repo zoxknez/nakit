@@ -43,6 +43,7 @@ async function main() {
   const necklace1 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'necklaces',
+      price: 4500,
       mediaUrls: [demoImages[0]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
@@ -74,6 +75,7 @@ async function main() {
   const bracelet1 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'bracelets',
+      price: 3200,
       mediaUrls: [demoImages[1]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
@@ -105,6 +107,7 @@ async function main() {
   const statement1 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'statement',
+      price: 7800,
       mediaUrls: [demoImages[2]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
@@ -136,6 +139,7 @@ async function main() {
   const necklace2 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'necklaces',
+      price: 4200,
       mediaUrls: [demoImages[0]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
@@ -166,6 +170,7 @@ async function main() {
   const bracelet2 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'bracelets',
+      price: 2800,
       mediaUrls: [demoImages[1]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
@@ -196,6 +201,7 @@ async function main() {
   const statement2 = await prisma.jewelryPiece.create({
     data: {
       categoryKey: 'statement',
+      price: 9500,
       mediaUrls: [demoImages[2]],
       publishedLocales: ['sr', 'ru', 'en'],
       translations: {
