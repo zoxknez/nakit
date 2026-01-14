@@ -31,135 +31,168 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
     const enTranslation = initialData?.translations.find((t: any) => t.locale === 'en');
 
     return (
-        <form action={pieceId ? updatePiece.bind(null, pieceId) : createPiece} onSubmit={() => setLoading(true)} className="space-y-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Basic Info */}
-                <div className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wider">
-                            Category Key
+        <form action={pieceId ? updatePiece.bind(null, pieceId) : createPiece} onSubmit={() => setLoading(true)} className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column: Media & Core Info */}
+                <div className="space-y-8">
+                    {/* Media Upload */}
+                    <div className="bg-brand-dark/40 border border-brand-secondary/20 rounded-2xl p-8 backdrop-blur-sm">
+                        <label className="block text-sm font-bold text-brand-secondary mb-4 uppercase tracking-wider flex justify-between">
+                            <span>Image Gallery</span>
+                            <span className="text-brand-primary/60 text-xs normal-case font-normal">First image is the cover</span>
                         </label>
-                        <select
-                            name="categoryKey"
-                            defaultValue={initialData?.categoryKey || 'necklaces'}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-brand-secondary outline-none transition-all"
-                            required
-                        >
-                            <option value="necklaces">Necklaces</option>
-                            <option value="bracelets">Bracelets</option>
-                            <option value="statement">Statement Pieces</option>
-                        </select>
-                    </div>
 
-                    <div>
-                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wider">
-                            Price (RSD)
-                        </label>
-                        <input
-                            type="number"
-                            name="price"
-                            defaultValue={initialData?.price || ''}
-                            placeholder="e.g. 4500"
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-brand-secondary outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wider">
-                            Images
-                        </label>
-                        <input
-                            type="file"
-                            name="files"
-                            multiple
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-secondary/10 file:text-brand-secondary hover:file:bg-brand-secondary/20 transition-all cursor-pointer"
-                        />
-                        {previews.length > 0 && (
-                            <div className="grid grid-cols-4 gap-4 mt-6">
-                                {previews.map((url, i) => (
-                                    <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-gray-100 dark:border-gray-600 shadow-sm">
-                                        <Image src={url} alt="Preview" fill className="object-cover" />
+                        <div className="grid grid-cols-3 gap-4 mb-6">
+                            {previews.map((url, i) => (
+                                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-brand-secondary/30 shadow-lg group">
+                                    <Image src={url} alt="Preview" fill className="object-cover" />
+                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span className="text-white text-xs font-bold">{i + 1}</span>
                                     </div>
-                                ))}
-                            </div>
-                        )}
+                                </div>
+                            ))}
+                            <label className="relative aspect-square rounded-xl border-2 border-dashed border-brand-secondary/30 hover:border-brand-secondary/60 hover:bg-brand-secondary/5 transition-all cursor-pointer flex flex-col items-center justify-center gap-2 group">
+                                <div className="w-10 h-10 rounded-full bg-brand-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <span className="text-2xl text-brand-secondary">+</span>
+                                </div>
+                                <span className="text-xs text-brand-secondary/60 font-bold uppercase">Add Photo</span>
+                                <input
+                                    type="file"
+                                    name="files"
+                                    multiple
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="hidden"
+                                />
+                            </label>
+                        </div>
                         {initialData?.mediaUrls && (
                             <input type="hidden" name="existingUrls" value={JSON.stringify(initialData.mediaUrls)} />
                         )}
                     </div>
+
+                    {/* Core Details */}
+                    <div className="bg-brand-dark/40 border border-brand-secondary/20 rounded-2xl p-8 backdrop-blur-sm space-y-6">
+                        <h3 className="text-xl font-serif font-bold text-brand-accent mb-4 border-b border-brand-secondary/10 pb-2">
+                            Product Details
+                        </h3>
+
+                        <div>
+                            <label className="block text-sm font-bold text-brand-primary mb-2 uppercase tracking-wider">
+                                Category
+                            </label>
+                            <select
+                                name="categoryKey"
+                                defaultValue={initialData?.categoryKey || 'necklaces'}
+                                className="w-full px-4 py-3 rounded-xl border border-brand-secondary/20 bg-brand-primary/5 text-brand-accent focus:ring-2 focus:ring-brand-secondary/50 outline-none transition-all appearance-none cursor-pointer hover:bg-brand-primary/10"
+                                required
+                            >
+                                <option value="necklaces">Necklaces (Ogrlice)</option>
+                                <option value="bracelets">Bracelets (Narukvice)</option>
+                                <option value="statement">Statement Pieces</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-bold text-brand-primary mb-2 uppercase tracking-wider">
+                                Price (RSD)
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="number"
+                                    name="price"
+                                    defaultValue={initialData?.price || ''}
+                                    placeholder="4500"
+                                    className="w-full px-4 py-3 rounded-xl border border-brand-secondary/20 bg-brand-primary/5 text-brand-accent focus:ring-2 focus:ring-brand-secondary/50 outline-none transition-all font-mono font-bold text-lg"
+                                />
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-secondary font-bold font-serif pointer-events-none">
+                                    RSD
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Translations */}
-                <div className="space-y-8">
-                    {/* Serbian */}
-                    <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-600">
-                        <h3 className="text-lg font-bold text-brand-primary dark:text-brand-secondary mb-4 flex items-center gap-2">
-                            <span className="w-8 h-5 bg-blue-600 rounded-sm inline-block"></span> SR - Serbian
+                {/* Right Column: Translations */}
+                <div className="space-y-6">
+                    <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-xl font-serif font-bold text-brand-accent">
+                            Translations & Content
+                        </h3>
+                        <span className="text-xs text-brand-primary/50 uppercase tracking-widest">3 Languages Required</span>
+                    </div>
+
+                    {/* Serbian (Primary) */}
+                    <div className="p-6 bg-brand-primary/5 rounded-2xl border border-brand-secondary/20 relative overflow-hidden group hover:border-brand-secondary/40 transition-colors">
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/5 rounded-bl-full pointer-events-none" />
+                        <h3 className="text-lg font-bold text-brand-secondary mb-4 flex items-center gap-2">
+                            <span className="w-8 h-5 bg-gradient-to-b from-red-600 via-blue-600 to-white rounded-sm shadow-sm inline-block opacity-80"></span>
+                            Srpski (Primary)
                         </h3>
                         <div className="space-y-4">
                             <input
                                 type="text"
                                 name="srTitle"
                                 defaultValue={srTranslation?.title || ''}
-                                placeholder="Naslov"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                placeholder="Naziv komada"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                                 required
                             />
                             <input
                                 type="text"
                                 name="srCategory"
                                 defaultValue={srTranslation?.categoryName || ''}
-                                placeholder="Kategorija (npr. Ogrlice)"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                placeholder="Ime kategorije (npr. Graciozna Ogrlica)"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                                 required
                             />
                             <textarea
                                 name="srDescription"
                                 defaultValue={srTranslation?.description || ''}
-                                placeholder="Opis..."
-                                rows={3}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                placeholder="Detaljan opis i priča iza komada..."
+                                rows={4}
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary resize-none"
                                 required
                             />
                         </div>
                     </div>
 
                     {/* Russian */}
-                    <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-600">
-                        <h3 className="text-lg font-bold text-brand-primary dark:text-brand-secondary mb-4 flex items-center gap-2">
-                            <span className="w-8 h-5 bg-red-600 rounded-sm inline-block"></span> RU - Russian
+                    <div className="p-6 bg-brand-primary/5 rounded-2xl border border-brand-secondary/10 opacity-90 hover:opacity-100 hover:border-brand-secondary/30 transition-all">
+                        <h3 className="text-lg font-bold text-brand-primary/80 mb-4 flex items-center gap-2">
+                            <span className="w-8 h-5 bg-gradient-to-b from-white via-blue-600 to-red-600 rounded-sm shadow-sm inline-block opacity-80"></span>
+                            Русский
                         </h3>
                         <div className="space-y-4">
                             <input
                                 type="text"
                                 name="ruTitle"
                                 defaultValue={ruTranslation?.title || ''}
-                                placeholder="Заголовок"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                placeholder="Название"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                             />
                             <input
                                 type="text"
                                 name="ruCategory"
                                 defaultValue={ruTranslation?.categoryName || ''}
                                 placeholder="Категория"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                             />
                             <textarea
                                 name="ruDescription"
                                 defaultValue={ruTranslation?.description || ''}
                                 placeholder="Описание..."
-                                rows={3}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                rows={2}
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary resize-none"
                             />
                         </div>
                     </div>
 
                     {/* English */}
-                    <div className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-2xl border border-gray-100 dark:border-gray-600">
-                        <h3 className="text-lg font-bold text-brand-primary dark:text-brand-secondary mb-4 flex items-center gap-2">
-                            <span className="w-8 h-5 bg-blue-800 rounded-sm inline-block"></span> EN - English
+                    <div className="p-6 bg-brand-primary/5 rounded-2xl border border-brand-secondary/10 opacity-90 hover:opacity-100 hover:border-brand-secondary/30 transition-all">
+                        <h3 className="text-lg font-bold text-brand-primary/80 mb-4 flex items-center gap-2">
+                            <span className="w-8 h-5 bg-gradient-to-b from-blue-800 via-red-600 to-white rounded-sm shadow-sm inline-block opacity-80"></span>
+                            English
                         </h3>
                         <div className="space-y-4">
                             <input
@@ -167,32 +200,32 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                 name="enTitle"
                                 defaultValue={enTranslation?.title || ''}
                                 placeholder="Title"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                             />
                             <input
                                 type="text"
                                 name="enCategory"
                                 defaultValue={enTranslation?.categoryName || ''}
-                                placeholder="Category"
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                placeholder="Category Name"
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary"
                             />
                             <textarea
                                 name="enDescription"
                                 defaultValue={enTranslation?.description || ''}
                                 placeholder="Description..."
-                                rows={3}
-                                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 outline-none focus:ring-2 focus:ring-brand-secondary"
+                                rows={2}
+                                className="w-full px-4 py-2 rounded-lg border border-brand-secondary/20 bg-brand-dark/30 text-brand-accent placeholder-brand-primary/30 outline-none focus:ring-1 focus:ring-brand-secondary resize-none"
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="pt-8 border-t border-gray-100 dark:border-gray-700 flex justify-end gap-4">
+            <div className="pt-8 border-t border-brand-secondary/10 flex justify-end gap-4 sticky bottom-0 bg-brand-dark/80 backdrop-blur-md p-4 -mx-4 -mb-4 rounded-b-2xl z-20">
                 <button
                     type="button"
                     onClick={() => window.history.back()}
-                    className="px-8 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all font-semibold"
+                    className="px-8 py-3 rounded-xl border border-brand-secondary/20 text-brand-primary hover:bg-brand-primary/5 transition-all font-semibold"
                 >
                     Cancel
                 </button>
@@ -210,7 +243,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                             Saving...
                         </span>
                     ) : (
-                        pieceId ? 'Update Piece' : 'Create Piece'
+                        pieceId ? 'Update Masterpiece' : 'Create Masterpiece'
                     )}
                 </button>
             </div>
