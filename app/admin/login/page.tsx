@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
               <span className="text-brand-secondary font-serif font-bold text-4xl">NS</span>
             </div>
             <h1 className="text-3xl font-serif font-bold text-brand-secondary mb-2">
-              Admin Access
+              Pristup administratoru
             </h1>
             <p className="text-brand-primary/60 text-sm tracking-wider uppercase">
               Njata Shiz Handcrafted
@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-center text-sm font-medium">
-                {error}
+                {error === 'Invalid email or password' ? 'Neispravan email ili lozinka' : 'Došlo je do greške. Pokušajte ponovo.'}
               </div>
             )}
 
@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
                 htmlFor="email"
                 className="block text-xs font-bold text-brand-accent/80 mb-2 uppercase tracking-wider"
               >
-                Email
+                Email adresa
               </label>
               <input
                 id="email"
@@ -90,7 +90,7 @@ export default function AdminLoginPage() {
                 htmlFor="password"
                 className="block text-xs font-bold text-brand-accent/80 mb-2 uppercase tracking-wider"
               >
-                Password
+                Lozinka
               </label>
               <input
                 id="password"
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
               disabled={isLoading}
               className="w-full py-4 px-4 bg-brand-secondary text-brand-dark font-bold text-lg rounded-xl hover:bg-brand-secondary/90 hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none mt-2"
             >
-              {isLoading ? 'Decrypting...' : 'Enter Realm'}
+              {isLoading ? 'Provera...' : 'Prijavi se'}
             </button>
           </form>
         </div>

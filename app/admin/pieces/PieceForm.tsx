@@ -96,6 +96,9 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } catch (err: any) {
+            // Next.js uses internal error signals for some navigation rituals
+            if (err?.message === 'NEXT_REDIRECT') return;
+
             console.error('Submit Error:', err);
             setError('A critical failure occurred during the casting of this spell.');
             setLoading(false);
@@ -119,7 +122,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                             </svg>
                         </div>
                         <div>
-                            <h4 className="text-red-500 font-bold text-sm uppercase tracking-widest mb-1">Forge Interrupted</h4>
+                            <h4 className="text-red-500 font-bold text-sm uppercase tracking-widest mb-1">Greška pri čuvanju</h4>
                             <p className="text-brand-accent/60 text-xs font-serif leading-relaxed">{error}</p>
                         </div>
                     </div>
@@ -135,24 +138,24 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
 
                         <div className="flex justify-between items-end mb-10 relative z-10">
                             <div>
-                                <h3 className="text-3xl font-serif font-bold text-brand-secondary mb-2">Visual Essence</h3>
-                                <p className="text-brand-accent/40 text-[10px] font-black uppercase tracking-[0.2em]">The first image defines the Soul of the piece</p>
+                                <h3 className="text-3xl font-serif font-bold text-brand-secondary mb-2">Vizuelni identitet</h3>
+                                <p className="text-brand-accent/40 text-[10px] font-black uppercase tracking-[0.2em]">Prva slika definiše naslovnu fotografiju rada</p>
                             </div>
                             <div className="text-brand-secondary/40 text-[10px] font-black uppercase tracking-[0.1em] flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-brand-secondary/40" />
-                                {previews.length} Captured
+                                {previews.length} Slika dodato
                             </div>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10">
                             {previews.map((item, i) => (
                                 <div key={item.id} className={`group/img relative aspect-square rounded-[2rem] overflow-hidden border transition-all duration-500 ${i === 0 ? 'border-brand-secondary ring-2 ring-brand-secondary/20' : 'border-brand-secondary/20'}`}>
-                                    <Image src={item.url} alt="Preview" fill className="object-cover transition-transform duration-700 group-hover/img:scale-110" />
+                                    <Image src={item.url} alt="Pregled" fill className="object-cover transition-transform duration-700 group-hover/img:scale-110" />
 
                                     {/* Cover Badge */}
                                     {i === 0 && (
                                         <div className="absolute top-4 left-4 px-2 py-0.5 bg-brand-secondary text-brand-dark rounded-full text-[8px] font-black uppercase tracking-widest z-10">
-                                            Cover
+                                            Naslovna
                                         </div>
                                     )}
 
@@ -162,7 +165,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                             type="button"
                                             onClick={() => removeImage(item.id)}
                                             className="w-10 h-10 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center border border-red-500/30 hover:bg-red-500 hover:text-white transition-all shadow-lg"
-                                            title="Banish Image"
+                                            title="Ukloni sliku"
                                         >
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -174,7 +177,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                                 onClick={() => makePrimary(i)}
                                                 className="px-3 py-1 bg-brand-secondary/20 text-brand-secondary rounded-full text-[8px] font-black uppercase tracking-widest border border-brand-secondary/30 hover:bg-brand-secondary hover:text-brand-dark transition-all"
                                             >
-                                                Set Cover
+                                                Postavi kao naslovnu
                                             </button>
                                         )}
                                     </div>
@@ -190,7 +193,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                 <div className="w-14 h-14 rounded-full bg-brand-secondary/10 flex items-center justify-center border border-brand-secondary/20 group-hover/add:scale-110 transition-transform duration-500">
                                     <span className="text-3xl text-brand-secondary">+</span>
                                 </div>
-                                <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-[0.2em]">Add Vision</span>
+                                <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-[0.2em]">Dodaj sliku</span>
                                 <input
                                     ref={fileInputRef}
                                     type="file"
@@ -206,12 +209,12 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
 
                     {/* Core Specifications */}
                     <div className="glass-dark rounded-[3rem] p-10 border border-brand-secondary/20">
-                        <h3 className="text-2xl font-serif font-bold text-brand-secondary mb-8 pb-4 border-b border-brand-secondary/10">Base Alchemy</h3>
+                        <h3 className="text-2xl font-serif font-bold text-brand-secondary mb-8 pb-4 border-b border-brand-secondary/10">Osnovne specifikacije</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-4">
                                 <label className="block text-[10px] font-black text-brand-secondary/60 uppercase tracking-[0.3em] ml-2">
-                                    Sacred Category
+                                    Kategorija rada
                                 </label>
                                 <select
                                     name="categoryKey"
@@ -219,15 +222,15 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     className="w-full px-6 py-4 rounded-2xl border border-brand-secondary/20 bg-white/5 text-brand-accent focus:ring-2 focus:ring-brand-secondary/40 outline-none transition-all appearance-none cursor-pointer hover:bg-white/10 text-sm font-bold tracking-wider"
                                     required
                                 >
-                                    <option value="necklaces" className="bg-brand-dark">Necklaces (Ogrlice)</option>
-                                    <option value="bracelets" className="bg-brand-dark">Bracelets (Narukvice)</option>
-                                    <option value="statement" className="bg-brand-dark">Statement Pieces</option>
+                                    <option value="necklaces" className="bg-brand-dark">Ogrlice</option>
+                                    <option value="bracelets" className="bg-brand-dark">Narukvice</option>
+                                    <option value="statement" className="bg-brand-dark">Unikati / Specijalno</option>
                                 </select>
                             </div>
 
                             <div className="space-y-4">
                                 <label className="block text-[10px] font-black text-brand-secondary/60 uppercase tracking-[0.3em] ml-2">
-                                    Price of Gem (RSD)
+                                    Cena (RSD)
                                 </label>
                                 <div className="relative group">
                                     <input
@@ -250,13 +253,13 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                 <div className="lg:col-span-12 xl:col-span-4 space-y-8 animate-slide-in-right">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-8 h-px bg-brand-secondary/40" />
-                        <h3 className="text-[11px] font-black text-brand-secondary uppercase tracking-[0.4em]">Written Legacy</h3>
+                        <h3 className="text-[11px] font-black text-brand-secondary uppercase tracking-[0.4em]">Tekstualni opisi</h3>
                     </div>
 
                     {[
-                        { lang: 'sr', title: 'Srpski (Legacy)', data: srTranslation, flag: '🇷🇸', required: true },
-                        { lang: 'ru', title: 'Русский', data: ruTranslation, flag: '🇷🇺' },
-                        { lang: 'en', title: 'English', data: enTranslation, flag: '🇬🇧' }
+                        { lang: 'sr', title: 'Srpski jezik', data: srTranslation, flag: '🇷🇸', required: true },
+                        { lang: 'ru', title: 'Ruski jezik', data: ruTranslation, flag: '🇷🇺' },
+                        { lang: 'en', title: 'Engleski jezik', data: enTranslation, flag: '🇬🇧' }
                     ].map((item, idx) => (
                         <div
                             key={item.lang}
@@ -267,7 +270,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     <span className="text-xl grayscale group-hover/lang:grayscale-0 transition-all">{item.flag}</span>
                                     {item.title}
                                 </h4>
-                                {item.required && <span className="text-[8px] font-black uppercase text-brand-secondary/60 tracking-tighter bg-brand-secondary/10 px-2 py-0.5 rounded-full">Primary</span>}
+                                {item.required && <span className="text-[8px] font-black uppercase text-brand-secondary/60 tracking-tighter bg-brand-secondary/10 px-2 py-0.5 rounded-full">Obavezno</span>}
                             </div>
 
                             <div className="space-y-5">
@@ -275,7 +278,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     type="text"
                                     name={`${item.lang}Title`}
                                     defaultValue={item.data?.title || ''}
-                                    placeholder="The Title..."
+                                    placeholder="Naslov rada..."
                                     className="w-full px-5 py-3 rounded-xl border border-brand-secondary/10 bg-white/5 text-brand-accent text-sm font-bold placeholder-white/20 outline-none focus:ring-1 focus:ring-brand-secondary/40 focus:bg-white/10 transition-all"
                                     required={item.required}
                                 />
@@ -283,14 +286,14 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     type="text"
                                     name={`${item.lang}Category`}
                                     defaultValue={item.data?.categoryName || ''}
-                                    placeholder="Category Display Name..."
+                                    placeholder="Naziv kategorije (za prikaz)..."
                                     className="w-full px-5 py-3 rounded-xl border border-brand-secondary/10 bg-white/5 text-brand-accent text-xs font-bold placeholder-white/20 outline-none focus:ring-1 focus:ring-brand-secondary/40 focus:bg-white/10 transition-all"
                                     required={item.required}
                                 />
                                 <textarea
                                     name={`${item.lang}Description`}
                                     defaultValue={item.data?.description || ''}
-                                    placeholder="Whisper the story behind this creation..."
+                                    placeholder="Ispričajte priču koja stoji iza ove kreacije..."
                                     rows={4}
                                     className="w-full px-5 py-3 rounded-xl border border-brand-secondary/10 bg-white/5 text-brand-accent text-xs placeholder-white/20 outline-none focus:ring-1 focus:ring-brand-secondary/40 focus:bg-white/10 transition-all resize-none leading-relaxed"
                                     required={item.required}
@@ -310,7 +313,7 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                         onClick={() => window.history.back()}
                         className="px-10 py-4 rounded-full text-[10px] font-black text-brand-secondary/60 uppercase tracking-widest hover:text-brand-secondary hover:bg-brand-secondary/5 transition-all disabled:opacity-30"
                     >
-                        Revert
+                        Odustani
                     </button>
 
                     <button
@@ -325,10 +328,10 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                                     </svg>
-                                    Casting Spell...
+                                    Čuvanje...
                                 </>
                             ) : (
-                                pieceId ? 'Update Masterpiece' : 'Forge Masterpiece'
+                                pieceId ? 'Ažuriraj rad' : 'Sačuvaj rad'
                             )}
                         </span>
                         <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 skew-x-12" />

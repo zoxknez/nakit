@@ -31,11 +31,11 @@ export default async function AdminDashboard() {
               <span className="text-brand-secondary font-serif font-bold text-2xl group-hover:scale-110 transition-transform duration-500">NS</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-serif font-bold text-brand-secondary tracking-tight">Admin Vault</h1>
+              <h1 className="text-xl font-serif font-bold text-brand-secondary tracking-tight">Admin Panel</h1>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 <p className="text-[10px] text-brand-secondary/60 uppercase tracking-[0.2em] font-bold">
-                  {session.user?.name || 'Authorized Personnel'}
+                  {session.user?.name || 'Administrator'}
                 </p>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default async function AdminDashboard() {
               target="_blank"
               className="px-5 py-2 text-sm font-bold text-brand-secondary border border-brand-secondary/30 rounded-full hover:bg-brand-secondary/10 hover:border-brand-secondary/60 transition-all duration-300"
             >
-              Live Site
+              Pogledaj sajt
             </Link>
             <div className="w-px h-8 bg-brand-secondary/20" />
             <SignOutButton />
@@ -61,10 +61,10 @@ export default async function AdminDashboard() {
           <div className="animate-slide-in-left">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-px bg-brand-secondary/40" />
-              <span className="text-[11px] font-bold text-brand-secondary uppercase tracking-[0.3em]">Curate Collection</span>
+              <span className="text-[11px] font-bold text-brand-secondary uppercase tracking-[0.3em]">Upravljanje Kolekcijom</span>
             </div>
             <h2 className="text-5xl font-serif font-bold text-brand-accent">
-              Masterpieces
+              Umetnička dela
             </h2>
           </div>
 
@@ -72,7 +72,7 @@ export default async function AdminDashboard() {
             href="/admin/pieces/new"
             className="group relative px-10 py-4 bg-brand-secondary text-brand-dark rounded-full font-black uppercase tracking-wider text-sm overflow-hidden shadow-[0_0_30px_rgba(197,160,89,0.2)] hover:shadow-brand-secondary/40 transition-all duration-500 flex items-center gap-3"
           >
-            <span className="relative z-10">Forge New Piece</span>
+            <span className="relative z-10">Dodaj novi rad</span>
             <span className="text-xl relative z-10 transition-transform duration-500 group-hover:rotate-90">+</span>
             <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 skew-x-12" />
           </Link>
@@ -89,15 +89,15 @@ export default async function AdminDashboard() {
               <div className="w-32 h-32 mx-auto mb-10 bg-brand-secondary/5 rounded-full flex items-center justify-center border border-brand-secondary/10 animate-float">
                 <span className="text-6xl grayscale group-hover:grayscale-0 transition-all">💍</span>
               </div>
-              <h3 className="text-4xl font-serif font-bold text-brand-accent mb-4">The vault is empty</h3>
+              <h3 className="text-4xl font-serif font-bold text-brand-accent mb-4">Kolekcija je prazna</h3>
               <p className="text-brand-primary-foreground/40 mb-10 max-w-lg mx-auto leading-relaxed text-lg">
-                Your gallery of handcrafted jewelry awaits its first creation. Begin the journey by forging a new masterpiece.
+                Vaša galerija unikatnog nakita čeka na svoje prvo umetničko delo. Počnite tako što ćete dodati novi rad.
               </p>
               <Link
                 href="/admin/pieces/new"
                 className="inline-flex items-center gap-3 px-10 py-4 border-2 border-brand-secondary text-brand-secondary rounded-full font-bold hover:bg-brand-secondary hover:text-brand-dark transition-all duration-500 text-lg shadow-[0_0_40px_rgba(197,160,89,0.1)]"
               >
-                Create First Piece
+                Dodaj prvi rad
               </Link>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default async function AdminDashboard() {
                     {piece.mediaUrls[0] ? (
                       <Image
                         src={piece.mediaUrls[0]}
-                        alt={srTranslation?.title || 'Jewelry piece'}
+                        alt={srTranslation?.title || 'Nakit'}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-1000 grayscale-[0.2] group-hover:grayscale-0"
                       />
@@ -138,7 +138,7 @@ export default async function AdminDashboard() {
                     {/* Category Pin */}
                     <div className="absolute top-6 left-6 px-3 py-1 bg-brand-secondary/20 backdrop-blur-xl rounded-full border border-brand-secondary/20 shadow-lg">
                       <span className="text-[10px] text-brand-accent font-black uppercase tracking-widest leading-none">
-                        {piece.categoryKey}
+                        {piece.categoryKey === 'necklaces' ? 'Ogrlice' : piece.categoryKey === 'bracelets' ? 'Narukvice' : 'Special'}
                       </span>
                     </div>
                   </div>
@@ -147,7 +147,7 @@ export default async function AdminDashboard() {
                   <div className="p-8 relative">
                     <div className="mb-8">
                       <h3 className="font-serif font-bold text-2xl text-brand-accent mb-3 group-hover:text-brand-secondary transition-colors duration-500 truncate">
-                        {srTranslation?.title || 'Untitled Masterpiece'}
+                        {srTranslation?.title || 'Bez naslova'}
                       </h3>
                       <div className="flex items-center gap-3">
                         <div className="flex gap-1">
@@ -172,13 +172,13 @@ export default async function AdminDashboard() {
                         href={`/admin/pieces/${piece.id}/edit`}
                         className="flex-[2] py-4 text-center glass-dark text-brand-secondary rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-brand-secondary hover:text-brand-dark transition-all duration-500 border border-brand-secondary/20"
                       >
-                        Refine
+                        Izmeni
                       </Link>
                       <Link
                         href={`/sr/gallery/${piece.id}`}
                         target="_blank"
                         className="flex-1 py-4 flex items-center justify-center bg-white/5 text-brand-accent/60 rounded-2xl hover:bg-white/10 hover:text-brand-accent transition-all duration-500 border border-white/5"
-                        title="Live Preview"
+                        title="Pogledaj uživo"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
