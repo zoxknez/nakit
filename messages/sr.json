@@ -36,7 +36,8 @@
     "viewDetails": "Pogledaj detalje",
     "category": "Kategorija",
     "created": "Kreirano",
-    "backToGallery": "Nazad na galeriju"
+    "backToGallery": "Nazad na galeriju",
+    "price": "Cena"
   },
   "common": {
     "loading": "Učitavanje...",

@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -18,6 +17,8 @@ async function GalleryContent({
   locale: string;
   category?: string;
 }) {
+  const t = await getTranslations({ locale, namespace: 'piece' });
+
   // Fetch jewelry pieces
   const pieces = await prisma.jewelryPiece.findMany({
     where: {
@@ -121,9 +122,14 @@ async function GalleryContent({
                       </p>
                     </div>
                     {piece.price && (
-                      <p className="text-brand-secondary font-serif font-bold">
-                        {piece.price.toLocaleString(locale)} RSD
-                      </p>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-widest leading-none mb-1">
+                          {t('price')}
+                        </span>
+                        <p className="text-brand-secondary font-serif font-bold text-lg">
+                          {piece.price.toLocaleString(locale)} <span className="text-xs">RSD</span>
+                        </p>
+                      </div>
                     )}
                   </div>
 

@@ -36,7 +36,8 @@
     "viewDetails": "View details",
     "category": "Category",
     "created": "Created",
-    "backToGallery": "Back to gallery"
+    "backToGallery": "Back to gallery",
+    "price": "Price"
   },
   "common": {
     "loading": "Loading...",

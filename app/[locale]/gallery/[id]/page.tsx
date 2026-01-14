@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
@@ -14,6 +13,8 @@ export default async function PieceDetailPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: 'piece' });
+
   const piece = await prisma.jewelryPiece.findUnique({
     where: { id },
     include: {
@@ -27,7 +28,7 @@ export default async function PieceDetailPage({
 
   // Get translation for current locale or fallback to first available
   const translation =
-    piece.translations.find((t: { locale: string }) => t.locale === locale) ||
+    piece.translations.find((tPrisma: { locale: string }) => tPrisma.locale === locale) ||
     piece.translations[0];
 
   return (
@@ -62,11 +63,7 @@ export default async function PieceDetailPage({
             </svg>
           </div>
           <span className="font-serif text-lg tracking-wide">
-            {locale === 'sr'
-              ? 'Nazad na galeriju'
-              : locale === 'ru'
-                ? 'Назад в галерею'
-                : 'Back to gallery'}
+            {t('backToGallery')}
           </span>
         </Link>
 
@@ -128,14 +125,19 @@ export default async function PieceDetailPage({
 
                 {/* Title & Price */}
                 <div className="space-y-3">
-                  <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <h1 className="text-5xl font-serif font-bold text-brand-accent leading-tight drop-shadow-md">
                       {translation?.title}
                     </h1>
                     {piece.price && (
-                      <span className="text-3xl font-serif font-bold text-brand-secondary whitespace-nowrap">
-                        {piece.price.toLocaleString(locale)} RSD
-                      </span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-[0.3em] mb-1">
+                          {t('price')}
+                        </span>
+                        <span className="text-4xl font-serif font-bold text-brand-secondary whitespace-nowrap drop-shadow-lg">
+                          {piece.price.toLocaleString(locale)} <span className="text-lg uppercase">RSD</span>
+                        </span>
+                      </div>
                     )}
                   </div>
                   <div className="w-24 h-1 bg-gradient-to-r from-brand-secondary via-brand-secondary/50 to-transparent rounded-full" />
