@@ -140,7 +140,7 @@ export function HeroSection({ locale }: { locale: string }) {
 
                     <Link href={`/${locale}#about`} passHref>
                         <Button variant="ghost" size="lg" className="text-brand-accent/60 hover:text-brand-secondary tracking-[0.3em] font-bold uppercase transition-all duration-300 group">
-                            {locale === 'sr' ? 'Naša Priča' : locale === 'ru' ? 'Наша История' : 'Our Story'}
+                            {locale === 'sr' ? 'Moja Priča' : locale === 'ru' ? 'Наша История' : 'Our Story'}
                             <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-px bg-brand-secondary" />
                         </Button>
                     </Link>
