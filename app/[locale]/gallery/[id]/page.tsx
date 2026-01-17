@@ -42,7 +42,7 @@ export default async function PieceDetailPage({
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-brand-secondary/5 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-2s' }} />
       </div>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 md:pt-36 md:pb-16 lg:pt-40 lg:pb-20">
         {/* Back Button */}
         <Link
           href={`/${locale}/gallery`}
