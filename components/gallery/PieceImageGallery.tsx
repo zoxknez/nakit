@@ -37,8 +37,14 @@ export function PieceImageGallery({ images, title }: PieceImageGalleryProps) {
 
     if (!images || images.length === 0) {
         return (
-            <div className="aspect-square bg-brand-dark/40 rounded-2xl flex items-center justify-center border border-brand-secondary/20">
-                <span className="text-brand-secondary/40 font-serif">No images available</span>
+            <div className="aspect-square bg-brand-dark/40 rounded-2xl flex flex-col items-center justify-center border border-brand-secondary/20 relative overflow-hidden">
+                <Image
+                    src="/placeholder.jpg"
+                    alt="Placeholder"
+                    fill
+                    className="object-cover opacity-20"
+                />
+                <span className="text-brand-secondary/40 font-serif relative z-10">No images available</span>
             </div>
         );
     }
