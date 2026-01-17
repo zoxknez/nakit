@@ -125,13 +125,13 @@ export function PieceImageGallery({ images, title }: PieceImageGalleryProps) {
 
             {/* Thumbnail Navigation */}
             {images.length > 1 && (
-                <div className="flex flex-wrap gap-4 pt-2">
+                <div className="flex flex-nowrap lg:flex-wrap gap-4 pt-2 overflow-x-auto lg:overflow-visible no-scrollbar snap-x pb-4 md:pb-0">
                     {images.map((url, index) => (
                         <button
                             key={index}
                             onClick={() => setActiveIndex(index)}
                             className={cn(
-                                "relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden transition-all duration-500 border-2",
+                                "relative flex-shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden transition-all duration-500 border-2 snap-center",
                                 activeIndex === index
                                     ? "border-brand-secondary shadow-[0_0_15px_rgba(197,160,89,0.3)] scale-105"
                                     : "border-brand-secondary/20 opacity-60 hover:opacity-100 hover:border-brand-secondary/50 grayscale-[40%] hover:grayscale-0"
