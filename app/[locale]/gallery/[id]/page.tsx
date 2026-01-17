@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { Footer } from '@/components/home/Footer';
+import { PieceImageGallery } from '@/components/gallery/PieceImageGallery';
 
 export default async function PieceDetailPage({
   params,
@@ -69,40 +70,10 @@ export default async function PieceDetailPage({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Images Gallery */}
-          <div className="space-y-6">
-            {piece.mediaUrls.map((url: string, index: number) => (
-              <div
-                key={index}
-                className="group relative aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-black/60 border border-brand-secondary/20 leather-texture"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Image Container */}
-                <div className="relative w-full h-full bg-brand-dark/40">
-                  <Image
-                    src={url}
-                    alt={`${translation?.title} - Image ${index + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority={index === 0}
-                  />
-
-                  {/* Shine Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-brand-secondary/0 to-transparent group-hover:via-brand-secondary/20 transition-all duration-700 pointer-events-none" />
-
-                  {/* Gold Corner Accents */}
-                  <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-brand-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-
-                {/* Image Number Badge */}
-                {piece.mediaUrls.length > 1 && (
-                  <div className="absolute top-4 right-4 w-10 h-10 bg-brand-dark/40 backdrop-blur-md border border-brand-secondary/40 rounded-full flex items-center justify-center text-brand-secondary text-sm font-bold shadow-lg">
-                    {index + 1}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <PieceImageGallery
+            images={piece.mediaUrls}
+            title={translation?.title || 'Jewelry Piece'}
+          />
 
           {/* Details Section */}
           <div className="lg:sticky lg:top-24 lg:h-fit">
