@@ -200,7 +200,7 @@ export default async function GalleryPage({
         <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-brand-secondary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-1.5s' }} />
       </div>
 
-      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 md:pt-36 md:pb-16 lg:pt-40 lg:pb-20">
         <Suspense fallback={
           <div className="flex flex-col justify-center items-center py-32">
             <div className="relative w-20 h-20 mb-6">
