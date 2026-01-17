@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PieceImageGalleryProps {
     images: string[];
@@ -12,6 +13,27 @@ interface PieceImageGalleryProps {
 
 export function PieceImageGallery({ images, title }: PieceImageGalleryProps) {
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleNext = () => {
+        if (activeIndex < images.length - 1) {
+            setActiveIndex(prev => prev + 1);
+        }
+    };
+
+    const handlePrev = () => {
+        if (activeIndex > 0) {
+            setActiveIndex(prev => prev - 1);
+        }
+    };
+
+    const handleDragEnd = (event: any, info: PanInfo) => {
+        const threshold = 50;
+        if (info.offset.x < -threshold) {
+            handleNext();
+        } else if (info.offset.x > threshold) {
+            handlePrev();
+        }
+    };
 
     if (!images || images.length === 0) {
         return (
@@ -32,13 +54,17 @@ export function PieceImageGallery({ images, title }: PieceImageGalleryProps) {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="relative w-full h-full"
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={handleDragEnd}
+                        className="relative w-full h-full cursor-grab active:cursor-grabbing"
                     >
                         <Image
                             src={images[activeIndex]}
                             alt={`${title} - Image ${activeIndex + 1}`}
                             fill
-                            className="object-cover"
+                            className="object-cover pointer-events-none"
                             priority
                             sizes="(max-width: 768px) 100vw, 50vw"
                         />
@@ -46,6 +72,43 @@ export function PieceImageGallery({ images, title }: PieceImageGalleryProps) {
                         {/* Dramatic Lighting Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-tr from-brand-dark/40 via-transparent to-white/5 pointer-events-none" />
                     </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation Arrows */}
+                <AnimatePresence>
+                    {images.length > 1 && (
+                        <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none z-30">
+                            {/* Left Arrow - Hidden on first image */}
+                            <div className="flex-1 flex items-center justify-start h-full">
+                                {activeIndex > 0 && (
+                                    <motion.button
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -10 }}
+                                        onClick={handlePrev}
+                                        className="pointer-events-auto p-3 rounded-full bg-brand-dark/40 backdrop-blur-md border border-brand-secondary/30 text-brand-secondary hover:bg-brand-secondary hover:text-brand-dark transition-all duration-300 shadow-2xl"
+                                    >
+                                        <ChevronLeft size={24} />
+                                    </motion.button>
+                                )}
+                            </div>
+
+                            {/* Right Arrow - Hidden on last image (implied by "on others both") */}
+                            <div className="flex-1 flex items-center justify-end h-full">
+                                {activeIndex < images.length - 1 && (
+                                    <motion.button
+                                        initial={{ opacity: 0, x: 10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: 10 }}
+                                        onClick={handleNext}
+                                        className="pointer-events-auto p-3 rounded-full bg-brand-dark/40 backdrop-blur-md border border-brand-secondary/30 text-brand-secondary hover:bg-brand-secondary hover:text-brand-dark transition-all duration-300 shadow-2xl"
+                                    >
+                                        <ChevronRight size={24} />
+                                    </motion.button>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </AnimatePresence>
 
                 {/* Decorative High-End Accents */}
