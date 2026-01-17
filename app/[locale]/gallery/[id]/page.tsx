@@ -135,7 +135,7 @@ export default async function PieceDetailPage({
                           {t('price')}
                         </span>
                         <span className="text-4xl font-serif font-bold text-brand-secondary whitespace-nowrap drop-shadow-lg">
-                          {piece.price.toLocaleString(locale)} <span className="text-lg uppercase">RSD</span>
+                          {piece.price.toLocaleString(locale)} <span className="text-lg uppercase">RSD</span> <span className="text-xs uppercase opacity-60 ml-1 tracking-tight">{t('shipping')}</span>
                         </span>
                       </div>
                     )}

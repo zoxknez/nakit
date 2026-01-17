@@ -37,7 +37,8 @@
     "category": "Категория",
     "created": "Создано",
     "backToGallery": "Назад в галерею",
-    "price": "Цена"
+    "price": "Цена",
+    "shipping": "+ доставка"
   },
   "common": {
     "loading": "Загрузка...",

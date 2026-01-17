@@ -37,7 +37,8 @@
     "category": "Kategorija",
     "created": "Kreirano",
     "backToGallery": "Nazad na galeriju",
-    "price": "Cena"
+    "price": "Cena",
+    "shipping": "+ PTT troškovi"
   },
   "common": {
     "loading": "Učitavanje...",

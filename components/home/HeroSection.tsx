@@ -86,7 +86,7 @@ export function HeroSection({ locale }: { locale: string }) {
                                 ease: "easeInOut"
                             }
                         }}
-                        className="relative w-[340px] md:w-[680px] lg:w-[1000px] h-[170px] md:h-[340px] lg:h-[500px] mx-auto bg-gradient-to-r from-[#ffd700] via-[#fff5a5] to-[#c5a059] bg-[length:200%_auto]"
+                        className="relative w-[340px] md:w-[680px] lg:w-[1000px] h-[170px] md:h-[340px] lg:h-[500px] mx-auto bg-gradient-to-r from-[#9ca3af] via-[#f3f4f6] to-[#6b7280] bg-[length:200%_auto]"
                         style={{
                             maskImage: 'url(/images/njata-title.png)',
                             WebkitMaskImage: 'url(/images/njata-title.png)',
@@ -97,7 +97,7 @@ export function HeroSection({ locale }: { locale: string }) {
                             maskPosition: 'center',
                             WebkitMaskPosition: 'center',
                             animation: 'gradient-shift 8s linear infinite',
-                            filter: 'drop-shadow(0 0 20px rgba(197, 160, 89, 0.4)) drop-shadow(0 20px 40px rgba(0,0,0,0.7))',
+                            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.2)) drop-shadow(0 20px 40px rgba(0,0,0,0.7))',
                         }}
                     >
                         <span className="sr-only">Njata</span>

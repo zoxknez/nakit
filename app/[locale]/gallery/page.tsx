@@ -127,7 +127,7 @@ async function GalleryContent({
                           {t('price')}
                         </span>
                         <p className="text-brand-secondary font-serif font-bold text-lg">
-                          {piece.price.toLocaleString(locale)} <span className="text-xs">RSD</span>
+                          {piece.price.toLocaleString(locale)} <span className="text-xs">RSD</span> <span className="text-[10px] lowercase opacity-70 ml-1">{t('shipping')}</span>
                         </p>
                       </div>
                     )}
