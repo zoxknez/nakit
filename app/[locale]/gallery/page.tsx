@@ -122,12 +122,15 @@ async function GalleryContent({
                       </p>
                     </div>
                     {piece.price && (
-                      <div className="flex flex-col items-end">
+                      <div className="flex flex-col items-end text-right">
                         <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-widest leading-none mb-1">
                           {t('price')}
                         </span>
-                        <p className="text-brand-secondary font-serif font-bold text-lg">
-                          {piece.price.toLocaleString(locale)} <span className="text-xs">RSD</span> <span className="text-[10px] lowercase opacity-70 ml-1">{t('shipping')}</span>
+                        <p className="text-brand-secondary font-serif font-bold text-lg leading-tight">
+                          {piece.price.toLocaleString(locale)} <span className="text-xs">RSD</span>
+                        </p>
+                        <p className="text-[9px] lowercase opacity-60 text-brand-accent/80 font-sans tracking-tighter">
+                          {t('shipping')}
                         </p>
                       </div>
                     )}

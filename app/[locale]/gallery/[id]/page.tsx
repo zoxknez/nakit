@@ -124,19 +124,25 @@ export default async function PieceDetailPage({
                 </div>
 
                 {/* Title & Price */}
-                <div className="space-y-3">
-                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <h1 className="text-5xl font-serif font-bold text-brand-accent leading-tight drop-shadow-md">
+                <div className="space-y-4">
+                  <div className="flex flex-col gap-4">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brand-accent leading-tight drop-shadow-md">
                       {translation?.title}
                     </h1>
+
                     {piece.price && (
-                      <div className="flex flex-col items-end">
+                      <div className="flex flex-col items-start border-l-4 border-brand-secondary/40 pl-6 py-2 bg-brand-secondary/5 rounded-r-2xl shadow-inner">
                         <span className="text-[10px] text-brand-secondary/60 font-black uppercase tracking-[0.3em] mb-1">
                           {t('price')}
                         </span>
-                        <span className="text-4xl font-serif font-bold text-brand-secondary whitespace-nowrap drop-shadow-lg">
-                          {piece.price.toLocaleString(locale)} <span className="text-lg uppercase">RSD</span> <span className="text-xs uppercase opacity-60 ml-1 tracking-tight">{t('shipping')}</span>
-                        </span>
+                        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                          <span className="text-3xl md:text-4xl font-serif font-bold text-brand-secondary drop-shadow-lg">
+                            {piece.price.toLocaleString(locale)} <span className="text-lg uppercase">RSD</span>
+                          </span>
+                          <span className="text-xs uppercase opacity-70 tracking-tight font-sans">
+                            {t('shipping')}
+                          </span>
+                        </div>
                       </div>
                     )}
                   </div>
