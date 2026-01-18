@@ -222,9 +222,10 @@ export function PieceForm({ initialData, pieceId }: PieceFormProps) {
                                     className="w-full px-6 py-4 rounded-2xl border border-brand-secondary/20 bg-white/5 text-brand-accent focus:ring-2 focus:ring-brand-secondary/40 outline-none transition-all appearance-none cursor-pointer hover:bg-white/10 text-sm font-bold tracking-wider"
                                     required
                                 >
-                                    <option value="necklaces" className="bg-brand-dark">Ogrlice</option>
-                                    <option value="bracelets" className="bg-brand-dark">Narukvice</option>
-                                    <option value="statement" className="bg-brand-dark">Unikati / Specijalno</option>
+                                    <option value="necklaces" className="bg-brand-dark">Ogrlica</option>
+                                    <option value="bracelets" className="bg-brand-dark">Narukvica</option>
+                                    <option value="sets" className="bg-brand-dark">Komplet</option>
+                                    <option value="earrings" className="bg-brand-dark">Minđuše</option>
                                 </select>
                             </div>
 

@@ -23,9 +23,10 @@
   },
   "categories": {
     "all": "Sve kategorije",
-    "necklaces": "Ogrlice",
-    "bracelets": "Narukvice",
-    "statement": "Statement Komadi"
+    "necklaces": "Ogrlica",
+    "bracelets": "Narukvica",
+    "sets": "Komplet",
+    "earrings": "Minđuše"
   },
   "gallery": {
     "title": "Galerija",

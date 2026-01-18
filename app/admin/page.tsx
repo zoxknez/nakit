@@ -64,7 +64,7 @@ export default async function AdminDashboard() {
               <span className="text-[11px] font-bold text-brand-secondary uppercase tracking-[0.3em]">Upravljanje Kolekcijom</span>
             </div>
             <h2 className="text-5xl font-serif font-bold text-brand-accent">
-              Umetnička dela
+              Primenjena umetnost na koži
             </h2>
           </div>
 

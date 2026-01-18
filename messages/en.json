@@ -23,9 +23,10 @@
   },
   "categories": {
     "all": "All categories",
-    "necklaces": "Necklaces",
-    "bracelets": "Bracelets",
-    "statement": "Statement Pieces"
+    "necklaces": "Necklace",
+    "bracelets": "Bracelet",
+    "sets": "Set",
+    "earrings": "Earrings"
   },
   "gallery": {
     "title": "Gallery",

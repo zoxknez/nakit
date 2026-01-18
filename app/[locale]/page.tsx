@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { HeroSection } from '@/components/home/HeroSection';
 import { AboutSection } from '@/components/home/AboutSection';
 import { CTASection } from '@/components/home/CTASection';
+import { PromotionBanner } from '@/components/home/PromotionBanner';
 import { Footer } from '@/components/home/Footer';
 
 export default async function HomePage({
@@ -16,6 +17,7 @@ export default async function HomePage({
     <div className="min-h-screen bg-brand-dark text-brand-accent font-sans selection:bg-brand-secondary selection:text-brand-dark overflow-x-hidden">
       <main>
         <HeroSection locale={locale} />
+        <PromotionBanner />
         <AboutSection locale={locale} />
         <CTASection locale={locale} />
       </main>

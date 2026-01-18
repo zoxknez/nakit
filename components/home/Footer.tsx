@@ -99,7 +99,7 @@ export function Footer({ locale }: { locale: string }) {
                         </p>
                         <div className="flex gap-5">
                             <a
-                                href="https://www.instagram.com/njatashiz/"
+                                href="https://www.instagram.com/njata_shiz_nakit"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group relative w-12 h-12 rounded-xl border border-brand-secondary/30 flex items-center justify-center transition-all duration-500 hover:scale-110 hover:-translate-y-1"
@@ -112,7 +112,7 @@ export function Footer({ locale }: { locale: string }) {
                                 </svg>
                             </a>
                             <a
-                                href="https://www.facebook.com/Njata-Shiz-Handmade-100063529341405/"
+                                href="https://www.facebook.com/people/Njata-%C5%A1iz-nakit/100063550630480/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group relative w-12 h-12 rounded-xl border border-brand-secondary/30 flex items-center justify-center transition-all duration-500 hover:scale-110 hover:-translate-y-1"
