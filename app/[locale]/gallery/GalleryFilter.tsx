@@ -3,12 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 
-const categories = [
-  { key: 'all', sr: 'Sve kategorije', ru: 'Все категории', en: 'All categories' },
-  { key: 'necklaces', sr: 'Ogrlice', ru: 'Ожерелья', en: 'Necklaces' },
-  { key: 'bracelets', sr: 'Narukvice', ru: 'Браслеты', en: 'Bracelets' },
-  { key: 'statement', sr: 'Statement Komadi', ru: 'Эффектные Изделия', en: 'Statement Pieces' },
-];
+const categoryKeys = ['all', 'necklaces', 'bracelets', 'sets', 'earrings'];
 
 export default function GalleryFilter({
   locale,
@@ -19,7 +14,7 @@ export default function GalleryFilter({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations('gallery');
+  const t = useTranslations('categories');
 
   const handleCategoryChange = (categoryKey: string) => {
     if (categoryKey === 'all') {
@@ -34,14 +29,14 @@ export default function GalleryFilter({
   return (
     <div className="mb-16 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
       <div className="flex flex-wrap justify-center gap-4">
-        {categories.map((cat: any, index: number) => {
-          const isActive = activeCat === cat.key;
-          const label = cat[locale as keyof typeof cat] || cat.en;
+        {categoryKeys.map((key: string, index: number) => {
+          const isActive = activeCat === key;
+          const label = t(key);
 
           return (
             <button
-              key={cat.key}
-              onClick={() => handleCategoryChange(cat.key)}
+              key={key}
+              onClick={() => handleCategoryChange(key)}
               className={`
                 relative px-8 py-3.5 rounded-full font-serif font-semibold text-sm transition-all duration-500 transform hover:scale-110
                 animate-fadeInUp overflow-hidden

@@ -138,7 +138,10 @@ export default async function AdminDashboard() {
                     {/* Category Pin */}
                     <div className="absolute top-6 left-6 px-3 py-1 bg-brand-secondary/20 backdrop-blur-xl rounded-full border border-brand-secondary/20 shadow-lg">
                       <span className="text-[10px] text-brand-accent font-black uppercase tracking-widest leading-none">
-                        {piece.categoryKey === 'necklaces' ? 'Ogrlice' : piece.categoryKey === 'bracelets' ? 'Narukvice' : 'Special'}
+                        {piece.categoryKey === 'necklaces' ? 'Ogrlica' :
+                          piece.categoryKey === 'bracelets' ? 'Narukvica' :
+                            piece.categoryKey === 'sets' ? 'Komplet' :
+                              piece.categoryKey === 'earrings' ? 'Minđuše' : 'Specijalno'}
                       </span>
                     </div>
                   </div>
