@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import GalleryFilter from './GalleryFilter';
+import { PromotionBanner } from '@/components/home/PromotionBanner';
 import { Footer } from '@/components/home/Footer';
 
 // Prevent static generation
@@ -201,6 +202,7 @@ export default async function GalleryPage({
       </div>
 
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 md:pt-36 md:pb-16 lg:pt-40 lg:pb-20">
+        <PromotionBanner />
         <Suspense fallback={
           <div className="flex flex-col justify-center items-center py-32">
             <div className="relative w-20 h-20 mb-6">
