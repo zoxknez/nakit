@@ -3,8 +3,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
+import { useLocale } from 'next-intl';
 
 export function PromotionBanner() {
+    const locale = useLocale();
+
+    const translations = {
+        sr: {
+            badge: 'Specijalna Ponuda',
+            bracelet: 'Narukvica',
+            necklace: 'Ogrlica',
+            inSet: 'u kompletu',
+            tagline: 'Umetnost spojena u savršen par'
+        },
+        ru: {
+            badge: 'Специальное Предложение',
+            bracelet: 'Браслет',
+            necklace: 'Ожерелье',
+            inSet: 'в комплекте',
+            tagline: 'Искусство, соединённое в идеальную пару'
+        },
+        en: {
+            badge: 'Special Offer',
+            bracelet: 'Bracelet',
+            necklace: 'Necklace',
+            inSet: 'as a set',
+            tagline: 'Art united in a perfect pair'
+        }
+    };
+
+    const t = translations[locale as keyof typeof translations] || translations.sr;
+
     return (
         <section className="relative py-12 md:py-20 bg-transparent overflow-hidden">
             {/* Background Decorative Blobs - Very Subtle */}
@@ -37,18 +66,18 @@ export function PromotionBanner() {
                             >
                                 <span className="w-8 h-px bg-brand-secondary/30" />
                                 <span className="text-[10px] font-bold text-brand-secondary/70 uppercase tracking-[0.4em]">
-                                    Specijalna Ponuda
+                                    {t.badge}
                                 </span>
                                 <span className="w-8 h-px bg-brand-secondary/30" />
                             </motion.div>
 
                             {/* Refined Typography */}
                             <h3 className="text-3xl md:text-5xl font-serif text-brand-accent tracking-wide">
-                                <span className="text-brand-secondary drop-shadow-sm font-bold">Narukvica</span>
+                                <span className="text-brand-secondary drop-shadow-sm font-bold">{t.bracelet}</span>
                                 <span className="mx-4 text-brand-secondary/40 font-light">+</span>
-                                <span className="text-brand-secondary drop-shadow-sm font-bold">Ogrlica</span>
+                                <span className="text-brand-secondary drop-shadow-sm font-bold">{t.necklace}</span>
                                 <span className="block mt-4 text-xl md:text-2xl font-serif italic text-brand-accent/60 tracking-widest lowercase">
-                                    u kompletu
+                                    {t.inSet}
                                 </span>
                             </h3>
 
@@ -66,7 +95,7 @@ export function PromotionBanner() {
 
                             {/* Subtle Tagline */}
                             <p className="text-[9px] md:text-[10px] text-brand-accent/30 font-bold uppercase tracking-[0.5em] pt-4 italic">
-                                Umetnost spojena u savršen par
+                                {t.tagline}
                             </p>
                         </div>
                     </div>
