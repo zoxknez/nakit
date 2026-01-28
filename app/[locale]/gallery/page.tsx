@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import { prisma } from '@/lib/prisma';
 import GalleryFilter from './GalleryFilter';
+import GalleryPagination from './GalleryPagination';
 import { PromotionBanner } from '@/components/home/PromotionBanner';
 import { Footer } from '@/components/home/Footer';
 
@@ -11,16 +12,33 @@ import { Footer } from '@/components/home/Footer';
 export const dynamicParams = true;
 export const revalidate = 0;
 
+const ITEMS_PER_PAGE = 12;
+
 async function GalleryContent({
   locale,
-  category
+  category,
+  page = 1
 }: {
   locale: string;
   category?: string;
+  page?: number;
 }) {
   const t = await getTranslations({ locale, namespace: 'piece' });
 
-  // Fetch jewelry pieces
+  // Get total count for pagination
+  const totalCount = await prisma.jewelryPiece.count({
+    where: {
+      publishedLocales: {
+        has: locale,
+      },
+      ...(category && category !== 'all' ? { categoryKey: category } : {}),
+    },
+  });
+
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+  const skip = (page - 1) * ITEMS_PER_PAGE;
+
+  // Fetch jewelry pieces with pagination
   const pieces = await prisma.jewelryPiece.findMany({
     where: {
       publishedLocales: {
@@ -38,6 +56,8 @@ async function GalleryContent({
     orderBy: {
       createdAt: 'desc',
     },
+    skip,
+    take: ITEMS_PER_PAGE,
   });
 
   return (
@@ -64,6 +84,24 @@ async function GalleryContent({
         </div>
 
         <GalleryFilter currentCategory={category || 'all'} locale={locale} />
+
+        {/* Unique Piece Banner */}
+        <div className="mt-8 mx-auto max-w-2xl">
+          <div className="bg-brand-secondary/10 border border-brand-secondary/30 rounded-xl p-4 backdrop-blur-sm">
+            <div className="flex items-center justify-center gap-3">
+              <svg className="w-5 h-5 text-brand-secondary" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
+              </svg>
+              <p className="text-brand-secondary font-serif text-sm md:text-base">
+                {locale === 'sr'
+                  ? 'Svaki komad je unikat – nema dva ista. Ručno pravljeno, bez kalupa.'
+                  : locale === 'ru'
+                    ? 'Каждое изделие уникально – нет двух одинаковых. Ручная работа, без шаблонов.'
+                    : 'Each piece is unique – no two are alike. Handmade, no molds.'}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Gallery Grid with Stagger Animation */}
@@ -177,6 +215,16 @@ async function GalleryContent({
           </p>
         </div>
       )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <GalleryPagination
+          currentPage={page}
+          totalPages={totalPages}
+          locale={locale}
+          category={category}
+        />
+      )}
     </>
   );
 }
@@ -186,10 +234,11 @@ export default async function GalleryPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>;
 }) {
   const { locale } = await params;
-  const { category } = await searchParams;
+  const { category, page } = await searchParams;
+  const currentPage = page ? parseInt(page, 10) : 1;
   setRequestLocale(locale);
 
   return (
@@ -214,7 +263,7 @@ export default async function GalleryPage({
             </p>
           </div>
         }>
-          <GalleryContent locale={locale} category={category} />
+          <GalleryContent locale={locale} category={category} page={currentPage} />
         </Suspense>
       </main>
 
